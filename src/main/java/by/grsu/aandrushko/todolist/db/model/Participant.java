@@ -2,13 +2,11 @@ package by.grsu.aandrushko.todolist.db.model;
 
 
 
-public class participant {
+public class Participant {
 	
     private Integer id;
-	
 	private String name;
 	
-
 	public Integer getId() {
 		return id;
 	}

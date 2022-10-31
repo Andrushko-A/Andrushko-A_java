@@ -2,17 +2,15 @@ package by.grsu.aandrushko.todolist.db.model;
 
 import java.sql.Timestamp;
 
-public class task_type {
+public class TaskType {
 	
 	
 
-	private Integer id;
-	
-	private String name;
-	
-	private Timestamp date_of_correction;
+	@Override
+	public String toString() {
+		return "TaskType [id=" + id + ", name=" + name + ", dateOfCorrection=" + dateOfCorrection + "]";
+	}
 
-	
 	public Integer getId() {
 		return id;
 	}
@@ -29,18 +27,18 @@ public class task_type {
 		this.name = name;
 	}
 
-	public Timestamp getDate_of_correction() {
-		return date_of_correction;
+	public Timestamp getDateOfCorrection() {
+		return dateOfCorrection;
 	}
 
-	public void setDate_of_correction(Timestamp date_of_correction) {
-		this.date_of_correction = date_of_correction;
+	public void setDateOfCorrection(Timestamp dateOfCorrection) {
+		this.dateOfCorrection = dateOfCorrection;
 	}
-	
-	@Override
-	public String toString() {
-		return "task_type [id=" + id + ", name=" + name + ", date_of_correction=" + date_of_correction + "]";
-	}
+
+	private Integer id;
+	private String name;
+	private Timestamp dateOfCorrection;
+
 
 
 	

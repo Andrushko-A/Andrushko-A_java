@@ -2,15 +2,16 @@ package by.grsu.aandrushko.todolist.db.model;
 
 
 
-public class team {
+public class Team {
 	
+	@Override
+	public String toString() {
+		return "Team [id=" + id + ", name=" + name + ", numberOfPart=" + numberOfPart + "]";
+	}
+
 	private Integer id;
-	
 	private String name;
-	
-	private Integer number_of_part;
-
-
+	private Integer numberOfPart;
 
 	public Integer getId() {
 		return id;
@@ -28,19 +29,16 @@ public class team {
 		this.name = name;
 	}
 
-	public Integer getNumber_of_part() {
-		return number_of_part;
+	public Integer getNumberOfPart() {
+		return numberOfPart;
 	}
 
-	public void setNumber_of_part(Integer number_of_part) {
-		this.number_of_part = number_of_part;
+	public void setNumberOfPart(Integer numberOfPart) {
+		this.numberOfPart = numberOfPart;
 	}
-	
 
-	@Override
-	public String toString() {
-		return "team [id=" + id + ", name=" + name + ", number_of_part=" + number_of_part + "]";
-	}
+
+
 
 
 

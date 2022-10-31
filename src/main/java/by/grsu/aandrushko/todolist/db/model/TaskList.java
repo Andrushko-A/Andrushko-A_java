@@ -2,36 +2,30 @@ package by.grsu.aandrushko.todolist.db.model;
 
 import java.sql.Timestamp;
 
-public class task_list {
+public class TaskList {
 	
 	
 
-	private Integer task_id;
-	
-	private Integer participant_id;
-	
-	private Timestamp date;
-	
-	private Timestamp date_of_correction;
-	
-	private Integer status;
-	
-	private Integer team_id;
-	
-	public Integer getTask_id() {
-		return task_id;
+	@Override
+	public String toString() {
+		return "TaskList [taskId=" + taskId + ", participantId=" + participantId + ", date=" + date
+				+ ", dateOfCorrection=" + dateOfCorrection + ", status=" + status + ", teamId=" + teamId + "]";
 	}
 
-	public void setTask_id(Integer task_id) {
-		this.task_id = task_id;
+	public Integer getTaskId() {
+		return taskId;
 	}
 
-	public Integer getParticipant_id() {
-		return participant_id;
+	public void setTaskId(Integer taskId) {
+		this.taskId = taskId;
 	}
 
-	public void setParticipant_id(Integer participant_id) {
-		this.participant_id = participant_id;
+	public Integer getParticipantId() {
+		return participantId;
+	}
+
+	public void setParticipantId(Integer participantId) {
+		this.participantId = participantId;
 	}
 
 	public Timestamp getDate() {
@@ -42,12 +36,12 @@ public class task_list {
 		this.date = date;
 	}
 
-	public Timestamp getDate_of_correction() {
-		return date_of_correction;
+	public Timestamp getDateOfCorrection() {
+		return dateOfCorrection;
 	}
 
-	public void setDate_of_correction(Timestamp date_of_correction) {
-		this.date_of_correction = date_of_correction;
+	public void setDateOfCorrection(Timestamp dateOfCorrection) {
+		this.dateOfCorrection = dateOfCorrection;
 	}
 
 	public Integer getStatus() {
@@ -58,19 +52,22 @@ public class task_list {
 		this.status = status;
 	}
 
-	public Integer getTeam_id() {
-		return team_id;
+	public Integer getTeamId() {
+		return teamId;
 	}
 
-	public void setTeam_id(Integer team_id) {
-		this.team_id = team_id;
+	public void setTeamId(Integer teamId) {
+		this.teamId = teamId;
 	}
+
+	private Integer taskId;
+	private Integer participantId;
+	private Timestamp date;
+	private Timestamp dateOfCorrection;
+	private Integer status;
+	private Integer teamId;
 	
-	@Override
-	public String toString() {
-		return "task_list [task_id=" + task_id + ", participant_id=" + participant_id + ", date=" + date
-				+ ", date_of_correction=" + date_of_correction + ", status=" + status + ", team_id=" + team_id + "]";
-	}
+
 
 
 

@@ -6,73 +6,41 @@ import java.util.Date;
 import by.grsu.aandrushko.todolist.db.model.*;
 
 public class Main {
-	
+
 	public static void main(String[] args) {
-		
-		task Task = new task();
-		
-		Task.setId(1);
-		
-		Task.setName("Github");
-		
-		Task.setTask_type_id(2);
-		
-		System.out.println(Task.toString());
-		
+
+		Task task = new Task();
+		task.setId(1);
+		task.setName("Github");
+		task.setTaskTypeId(2);
+		System.out.println(task.toString());
 		/////////////////
-		
-		participant Participant = new participant();
-		
-		Participant.setId(1);
-		
-		Participant.setName("Andrey");
-		
-		System.out.println(Participant.toString());
-		
+		Participant participant = new Participant();
+		participant.setId(1);
+		participant.setName("Andrey");
+		System.out.println(participant.toString());
 		/////////////////
-		
-		task_type task_Type = new task_type();
-		
-		task_Type.setId(1);
-		
-		task_Type.setName("Work");
-		
-		task_Type.setDate_of_correction(new Timestamp(new Date().getTime()));
-		
-		System.out.println(task_Type.toString());
-		
+		TaskType taskType = new TaskType();
+		taskType.setId(1);
+		taskType.setName("Work");
+		taskType.setDateOfCorrection(new Timestamp(new Date().getTime()));
+		System.out.println(taskType.toString());
 		/////////////
-		
-		team Team = new team();
-		
-		Team.setId(1);
-		
-		Team.setName("Development team");
-		
-		Team.setNumber_of_part(3);
-		
-		System.out.println(Team.toString());
-		
+		Team team = new Team();
+		team.setId(1);
+		team.setName("Development team");
+		team.setNumberOfPart(3);
+		System.out.println(team.toString());
 		///////////
-		
-		task_list task_List = new task_list();
-		
-		task_List.setTask_id(1);
-		
-		task_List.setParticipant_id(2);
-		
-		task_List.setDate(new Timestamp(new Date().getTime()));
-		
-		task_List.setDate_of_correction(new Timestamp(new Date().getTime()));
-		
-		task_List.setStatus(0);
-		
-		task_List.setTeam_id(1);
-		
-		System.out.println(task_List.toString());
-		
+		TaskList taskList = new TaskList();
+		taskList.setTaskId(1);
+		taskList.setParticipantId(2);
+		taskList.setDate(new Timestamp(new Date().getTime()));
+		taskList.setDateOfCorrection(new Timestamp(new Date().getTime()));
+		taskList.setStatus(0);
+		taskList.setTaskId(1);
+		System.out.println(taskList.toString());
+
 	}
-	
-	
 
 }

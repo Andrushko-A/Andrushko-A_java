@@ -1,18 +1,20 @@
 package by.grsu.aandrushko.todolist.db.model;
 
 
-public class task {
+public class Task {
 	
 	
 
+
+	@Override
+	public String toString() {
+		return "Task [id=" + id + ", name=" + name + ", taskTypeId=" + taskTypeId + "]";
+	}
 
 	private Integer id;
-	
     private String name;
-	
-	private Integer task_type_id;
-	
-	
+	private Integer taskTypeId;
+
 	public Integer getId() {
 		return id;
 	}
@@ -29,19 +31,16 @@ public class task {
 		this.name = name;
 	}
 
-	public Integer getTask_type_id() {
-		return task_type_id;
+	public Integer getTaskTypeId() {
+		return taskTypeId;
 	}
 
-	public void setTask_type_id(Integer task_type_id) {
-		this.task_type_id = task_type_id;
+	public void setTaskTypeId(Integer taskTypeId) {
+		this.taskTypeId = taskTypeId;
 	}
-
-	@Override
-	public String toString() {
-		return "task [id=" + id + ", name=" + name + ", task_type_id=" + task_type_id + "]";
-	}
-
+	
+	
+	
 
 	
 
