@@ -22,7 +22,7 @@ public class ParticipantDaoImpl extends AbstractDao implements IDao<Integer, Par
 	@Override
 	public void insert(Participant entity) {
 		try (Connection c = createConnection()){
-			PreparedStatement pstmt =c.prepareStatement("insert into participants(name) values(?)");
+			PreparedStatement pstmt =c.prepareStatement("insert into participant(name) values(?)");
 			pstmt.setString(1, entity.getName());
 			pstmt.executeUpdate();
 			entity.setId(getGeneratedId(c, "participant"));
