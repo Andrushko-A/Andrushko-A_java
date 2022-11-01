@@ -15,7 +15,7 @@ public class TaskDaoTest extends AbstractTest {
 	public void testInsert() {
 		Task entity = new Task();
 		entity.setTaskTypeId(saveTaskType("Work").getId());
-		entity.setName("make analysis");
+		entity.setName("make an analysis");
 		modelDao.insert(entity);
 		Assertions.assertNotNull(entity.getId());
 	}
@@ -24,7 +24,7 @@ public class TaskDaoTest extends AbstractTest {
 	public void testUpdate() {
 		Task entity = new Task();
 		entity.setTaskTypeId(saveTaskType("Work").getId());
-		entity.setName("make analysis");
+		entity.setName("make an analysis");
 		modelDao.insert(entity);
 
 		String newName = "create a db";
@@ -39,7 +39,7 @@ public class TaskDaoTest extends AbstractTest {
 	public void testDelete() {
 		Task entity = new Task();
 		entity.setTaskTypeId(saveTaskType("Work").getId());
-		entity.setName("make analysis");
+		entity.setName("make an analysis");
 		modelDao.insert(entity);
 
 		modelDao.delete(entity.getId());
@@ -51,7 +51,7 @@ public class TaskDaoTest extends AbstractTest {
 	public void testGetById() {
 		Task entity = new Task();
 		entity.setTaskTypeId(saveTaskType("Work").getId());
-		entity.setName("make analysis");
+		entity.setName("make an analysis");
 		modelDao.insert(entity);
 
 		Task selectedEntity = modelDao.getById(entity.getId());
@@ -67,7 +67,7 @@ public class TaskDaoTest extends AbstractTest {
 		for (int i = 1; i <= expectedCount; i = i + 1) {
 			Task entity = new Task();
 			entity.setTaskTypeId(saveTaskType("Work" + i).getId());
-			entity.setName("make analysis" + i);
+			entity.setName("make an analysis" + i);
 			modelDao.insert(entity);
 		}
 

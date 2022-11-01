@@ -44,11 +44,11 @@ public class TaskList {
 		this.dateOfCorrection = dateOfCorrection;
 	}
 
-	public Integer getStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 
@@ -64,7 +64,7 @@ public class TaskList {
 	private Integer participantId;
 	private Timestamp deadline;
 	private Timestamp dateOfCorrection;
-	private Integer status;
+	private Boolean status;
 	private Integer teamId;
 	
 
