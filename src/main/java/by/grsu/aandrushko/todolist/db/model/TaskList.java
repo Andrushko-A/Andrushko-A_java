@@ -8,7 +8,7 @@ public class TaskList {
 
 	@Override
 	public String toString() {
-		return "TaskList [taskId=" + taskId + ", participantId=" + participantId + ", date=" + date
+		return "TaskList [taskId=" + taskId + ", participantId=" + participantId + ", deadline=" + deadline
 				+ ", dateOfCorrection=" + dateOfCorrection + ", status=" + status + ", teamId=" + teamId + "]";
 	}
 
@@ -28,12 +28,12 @@ public class TaskList {
 		this.participantId = participantId;
 	}
 
-	public Timestamp getDate() {
-		return date;
+	public Timestamp getDeadline() {
+		return deadline;
 	}
 
-	public void setDate(Timestamp date) {
-		this.date = date;
+	public void setDeadline(Timestamp date) {
+		this.deadline = date;
 	}
 
 	public Timestamp getDateOfCorrection() {
@@ -62,7 +62,7 @@ public class TaskList {
 
 	private Integer taskId;
 	private Integer participantId;
-	private Timestamp date;
+	private Timestamp deadline;
 	private Timestamp dateOfCorrection;
 	private Integer status;
 	private Integer teamId;

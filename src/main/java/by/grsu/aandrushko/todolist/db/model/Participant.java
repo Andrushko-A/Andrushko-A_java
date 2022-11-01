@@ -26,7 +26,7 @@ public class Participant {
 	
 	@Override
 	public String toString() {
-		return "participant [id=" + id + ", name=" + name + "]";
+		return "Participant [id=" + id + ", name=" + name + "]";
 	}
 
 }

@@ -1,7 +1,7 @@
 CREATE TABLE task_list (
 	task_id INTEGER NOT NULL REFERENCES task(id),
 	participant_id INTEGER NOT NULL REFERENCES participant(id),
-	date datetime NOT NULL,
+	deadline datetime NOT NULL,
 	date_of_correction datetime NOT NULL,
 	status INTEGER NOT NULL,
 	team_id INTEGER NOT NULL REFERENCES team(id)
@@ -21,7 +21,7 @@ CREATE TABLE participant (
 CREATE TABLE task_type (
 	id integer PRIMARY KEY AUTOINCREMENT,
 	name VARCHAR NOT NULL,
-	date_of_correction datetime NOTNULL
+	date_of_correction datetime NOT NULL
 );
 
 CREATE TABLE team (
