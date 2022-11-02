@@ -33,6 +33,7 @@ public class Main {
 		System.out.println(team.toString());
 		///////////
 		TaskList taskList = new TaskList();
+		taskList.setId(1);
 		taskList.setTaskId(1);
 		taskList.setParticipantId(2);
 		taskList.setDeadline(new Timestamp(new Date().getTime()));

@@ -6,10 +6,13 @@ public class TaskList {
 	
 	
 
+
+
 	@Override
 	public String toString() {
 		return "TaskList [taskId=" + taskId + ", participantId=" + participantId + ", deadline=" + deadline
-				+ ", dateOfCorrection=" + dateOfCorrection + ", status=" + status + ", teamId=" + teamId + "]";
+				+ ", dateOfCorrection=" + dateOfCorrection + ", status=" + status + ", teamId=" + teamId + ", id=" + id
+				+ "]";
 	}
 
 	public Integer getTaskId() {
@@ -59,6 +62,14 @@ public class TaskList {
 	public void setTeamId(Integer teamId) {
 		this.teamId = teamId;
 	}
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 
 	private Integer taskId;
 	private Integer participantId;
@@ -66,7 +77,8 @@ public class TaskList {
 	private Timestamp dateOfCorrection;
 	private Boolean status;
 	private Integer teamId;
-	
+	private Integer id;
+
 
 
 

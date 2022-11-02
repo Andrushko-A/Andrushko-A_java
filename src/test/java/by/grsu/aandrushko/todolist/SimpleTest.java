@@ -36,6 +36,7 @@ public class SimpleTest {
 
 	
 	@Test
+	@Disabled
 	void testDeleteSomething() {
 		System.out.println("======deleteSomething=======");
 		boolean isSomethingDeleted = false;

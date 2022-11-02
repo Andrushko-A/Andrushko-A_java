@@ -27,7 +27,7 @@ public class TaskListDaoTest extends AbstractTest {
 		entity.setDateOfCorrection(getCurrentTime());
 		entity.setTeamId(saveTeam("number1").getId());
 		taskListDao.insert(entity);
-		Assertions.assertNotNull(entity.getTaskId());
+		Assertions.assertNotNull(entity.getId());
 	}
 	
 	
@@ -53,10 +53,9 @@ public class TaskListDaoTest extends AbstractTest {
 		
 		taskListDao.update(entity);
 
-		TaskList updatedEntity = taskListDao.getById(entity.getTaskId());
+		TaskList updatedEntity = taskListDao.getById(entity.getId());
 		Assertions.assertEquals(newTask.getId(), updatedEntity.getTaskId());
 		Assertions.assertEquals(false, updatedEntity.getStatus());
-		Assertions.assertNotEquals(updatedEntity.getDeadline(), updatedEntity.getDateOfCorrection());
 	}
 
 	@Test
@@ -70,9 +69,9 @@ public class TaskListDaoTest extends AbstractTest {
 		entity.setTeamId(saveTeam("number1").getId());
 		taskListDao.insert(entity);
 
-		taskListDao.delete(entity.getTaskId());
+		taskListDao.delete(entity.getId());
 
-		Assertions.assertNull(taskListDao.getById(entity.getTaskId()));
+		Assertions.assertNull(taskListDao.getById(entity.getId()));
 	}
 
 	@Test
@@ -86,7 +85,7 @@ public class TaskListDaoTest extends AbstractTest {
 		entity.setTeamId(saveTeam("number1").getId());
 		taskListDao.insert(entity);
 
-		TaskList selectedEntity = taskListDao.getById(entity.getTaskId());
+		TaskList selectedEntity = taskListDao.getById(entity.getId());
 
 		Assertions.assertEquals(entity.getTaskId(), selectedEntity.getTaskId());
 		Assertions.assertEquals(entity.getParticipantId(), selectedEntity.getParticipantId());

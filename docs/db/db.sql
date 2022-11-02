@@ -1,5 +1,6 @@
 CREATE TABLE task_list (
-	task_id INTEGER NOT NULL REFERENCES task(id),
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    task_id INTEGER NOT NULL REFERENCES task(id),
 	participant_id INTEGER NOT NULL REFERENCES participant(id),
 	deadline datetime NOT NULL,
 	date_of_correction datetime NOT NULL,

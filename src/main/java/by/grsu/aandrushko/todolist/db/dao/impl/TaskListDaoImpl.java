@@ -30,6 +30,12 @@ public class TaskListDaoImpl extends AbstractDao implements IDao<Integer, TaskLi
 			pstmt.setInt(5, entity.getTeamId());
 		    pstmt.setBoolean(6, entity.getStatus());
 			pstmt.executeUpdate();
+			
+			
+			entity.setId(getGeneratedId(c, "task_list"));
+			
+			
+			
 		} catch (SQLException e) {
 			throw new RuntimeException("can't insert TaskList entity", e);
 		}
@@ -40,13 +46,14 @@ public class TaskListDaoImpl extends AbstractDao implements IDao<Integer, TaskLi
 	public void update(TaskList entity) {
 		try (Connection c = createConnection()) {
 			PreparedStatement pstmt = c
-					.prepareStatement("update task_list set task_id=?, participant_id=?, deadline=?, date_of_correction=?, team_id=?, status=? where task_id=? ");
+					.prepareStatement("update task_list set task_id=?, participant_id=?, deadline=?, date_of_correction=?, team_id=?, status=? where id=? ");
 			pstmt.setInt(1, entity.getTaskId());
 			pstmt.setInt(2, entity.getParticipantId());
 			pstmt.setTimestamp(3, entity.getDeadline());
 			pstmt.setTimestamp(4, entity.getDateOfCorrection());
 			pstmt.setInt(5, entity.getTeamId());
 		    pstmt.setBoolean(6, entity.getStatus());
+		    pstmt.setInt(7, entity.getId());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException("can't update TaskList entity", e);
@@ -55,10 +62,10 @@ public class TaskListDaoImpl extends AbstractDao implements IDao<Integer, TaskLi
 	}
 
 	@Override
-	public void delete(Integer task_id) {
+	public void delete(Integer id) {
 		try (Connection c = createConnection()) {
-			PreparedStatement pstmt = c.prepareStatement("delete from task_list where task_id=?");
-			pstmt.setInt(1, task_id);
+			PreparedStatement pstmt = c.prepareStatement("delete from task_list where id=?");
+			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException("can't delete TaskList entity", e);
@@ -66,11 +73,11 @@ public class TaskListDaoImpl extends AbstractDao implements IDao<Integer, TaskLi
 	}
 
 	@Override
-	public TaskList getById(Integer task_id) {
+	public TaskList getById(Integer id) {
 		TaskList entity = null;
 		try (Connection c = createConnection()) {
-			PreparedStatement pstmt = c.prepareStatement("select * from task_list where task_id=?");
-			pstmt.setInt(1, task_id);
+			PreparedStatement pstmt = c.prepareStatement("select * from task_list where id=?");
+			pstmt.setInt(1, id);
 
 			ResultSet rs = pstmt.executeQuery();
 
@@ -78,7 +85,7 @@ public class TaskListDaoImpl extends AbstractDao implements IDao<Integer, TaskLi
 				entity = rowToEntity(rs);
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException("can't get TaskList entity by task_id", e);
+			throw new RuntimeException("can't get TaskList entity by id", e);
 		}
 
 		return entity;
@@ -102,6 +109,7 @@ public class TaskListDaoImpl extends AbstractDao implements IDao<Integer, TaskLi
 
 	private TaskList rowToEntity(ResultSet rs) throws SQLException {
 		TaskList entity = new TaskList();
+		entity.setId(rs.getInt("id"));
 		entity.setTaskId(rs.getInt("task_id"));
 		entity.setParticipantId(rs.getInt("participant_id"));
 		entity.setStatus(rs.getBoolean("status"));

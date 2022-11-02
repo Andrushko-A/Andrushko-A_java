@@ -15,7 +15,7 @@ public abstract class AbstractTest {
 	}
 
 	@BeforeEach
-	private void setupThis() {
+	private void setupThis() throws InterruptedException {
 		AbstractDao.deleteDb();
 		AbstractDao.createDbSchema();
 	}
