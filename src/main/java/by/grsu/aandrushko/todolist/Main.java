@@ -37,7 +37,7 @@ public class Main {
 		taskList.setParticipantId(2);
 		taskList.setDeadline(new Timestamp(new Date().getTime()));
 		taskList.setDateOfCorrection(new Timestamp(new Date().getTime()));
-		taskList.setStatus(0);
+		taskList.setStatus(false);
 		taskList.setTaskId(1);
 		System.out.println(taskList.toString());
 
