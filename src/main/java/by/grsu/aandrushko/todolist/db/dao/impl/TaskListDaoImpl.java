@@ -69,7 +69,7 @@ public class TaskListDaoImpl extends AbstractDao implements IDao<Integer, TaskLi
 	public TaskList getById(Integer task_id) {
 		TaskList entity = null;
 		try (Connection c = createConnection()) {
-			PreparedStatement pstmt = c.prepareStatement("select * from car where task_id=?");
+			PreparedStatement pstmt = c.prepareStatement("select * from task_list where task_id=?");
 			pstmt.setInt(1, task_id);
 
 			ResultSet rs = pstmt.executeQuery();
@@ -88,7 +88,7 @@ public class TaskListDaoImpl extends AbstractDao implements IDao<Integer, TaskLi
 	public List<TaskList> getAll() {
 		List<TaskList> entitiesList = new ArrayList<>();
 		try (Connection c = createConnection()) {
-			ResultSet rs = c.createStatement().executeQuery("select * from TaskList");
+			ResultSet rs = c.createStatement().executeQuery("select * from task_list");
 			while (rs.next()) {
 				TaskList entity = rowToEntity(rs);
 				entitiesList.add(entity);

@@ -24,7 +24,7 @@ public class TaskDaoImpl extends AbstractDao implements IDao<Integer, Task> {
 			PreparedStatement pstmt = c
 					.prepareStatement("insert into task(name, task_type_id) values(?,?)");
 			pstmt.setString(1, entity.getName());
-			pstmt.setInt(2, entity.getTaskTypeId());
+			pstmt.setObject(2, entity.getTaskTypeId());
 			pstmt.executeUpdate();
 			entity.setId(getGeneratedId(c, "task"));
 		} catch (SQLException e) {

@@ -20,7 +20,7 @@ public class TaskListDaoTest extends AbstractTest {
 	@Test
 	public void testInsert() {
 		TaskList entity = new TaskList();
-		entity.setTaskId(saveTask("work", "make an analysis").getId());
+		entity.setTaskId(saveTask("Work", "make an analysis").getId());
 		entity.setStatus(true);
 		entity.setParticipantId(saveParticipant("Andrey").getId());
 		entity.setDeadline(getCurrentTime());
@@ -29,11 +29,13 @@ public class TaskListDaoTest extends AbstractTest {
 		taskListDao.insert(entity);
 		Assertions.assertNotNull(entity.getTaskId());
 	}
+	
+	
 
 	@Test
 	public void testUpdate() {
 		TaskList entity = new TaskList();
-		entity.setTaskId(saveTask("work", "make an analysis").getId());
+		entity.setTaskId(saveTask("Work", "make an analysis").getId());
 		entity.setParticipantId(saveParticipant("Andrey").getId());
 		entity.setStatus(true);
 		entity.setDeadline(getCurrentTime());
@@ -42,10 +44,13 @@ public class TaskListDaoTest extends AbstractTest {
 		taskListDao.insert(entity);
 		
 		Task newTask = saveTask("write", "read");
+		entity.setParticipantId(saveParticipant("NEW_Andrey").getId());
 		entity.setTaskId(newTask.getId());
 		entity.setStatus(false);
 		entity.setDeadline(getCurrentTime());
 		entity.setDateOfCorrection(getCurrentTime());
+		entity.setTeamId(saveTeam("NEW_number1").getId());
+		
 		taskListDao.update(entity);
 
 		TaskList updatedEntity = taskListDao.getById(entity.getTaskId());
@@ -57,7 +62,7 @@ public class TaskListDaoTest extends AbstractTest {
 	@Test
 	public void testDelete() {
 		TaskList entity = new TaskList();
-		entity.setTaskId(saveTask("work", "make an analysis").getId());
+		entity.setTaskId(saveTask("Work", "make an analysis").getId());
 		entity.setParticipantId(saveParticipant("Andrey").getId());
 		entity.setStatus(true);
 		entity.setDeadline(getCurrentTime());
@@ -73,7 +78,7 @@ public class TaskListDaoTest extends AbstractTest {
 	@Test
 	public void testGetById() {
 		TaskList entity = new TaskList();
-		entity.setTaskId(saveTask("work", "make an analysis").getId());
+		entity.setTaskId(saveTask("Work", "make an analysis").getId());
 		entity.setParticipantId(saveParticipant("Andrey").getId());
 		entity.setStatus(true);
 		entity.setDeadline(getCurrentTime());
@@ -131,7 +136,7 @@ public class TaskListDaoTest extends AbstractTest {
 
 		Task taskEntity = new Task();
 		taskEntity.setName(task);
-		taskEntity.setTaskTypeId(taskEntity.getId());
+		taskEntity.setTaskTypeId(taskTypeEntity.getId());
 		taskDao.insert(taskEntity);
 
 		return taskEntity;
