@@ -1,0 +1,75 @@
+<html>
+
+<head>
+<title>Task List</title>
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<nav class="blue lighten-1" role="navigation">
+	<div class="nav-wrapper container">
+		<ul class="right hide-on-med-and-down">
+		<li><a href="index.html">Task list</a></li>
+			<li><a href="tasks.html">Tasks</a></li>
+			<li><a href="participants.html">Participants</a></li>
+			<li><a href="#">Settings</a></li>
+			<li><a class="btn-small btn-floating waves-effect waves-light blue" title="выйти" href="#"><i class="material-icons">input</i></a></li>
+		</ul>
+	</div>
+	
+</nav>
+
+<body>
+
+
+<div class="section no-pad-bot" id="index-banner">
+	<div class="container">
+		<h1>Edit tasks</h1>
+
+
+		<div class="row">
+			<form class="col s12">
+				<div class="row">
+					 <div class="input-field col s4">
+						
+  <select class="browser-default">
+    <option value="" disabled selected>Choose your task</option>
+    <option value="1">Going to shop</option>
+    <option value="2">Taking out a trash</option>
+    <option value="3">Prip a presentation</option>
+  </select>
+					 </div>
+					<div class="input-field col s4">
+						<label for="start">Start date:</label>
+
+<input type="date" id="start" name="trip-start"
+       value="2022-10-19"
+       min="2022-10-19" max="2022-12-31">
+					</div>
+					<div class="input-field col s4">
+						
+  <select class="browser-default">
+    <option value="" disabled selected>Choose participant</option>
+    <option value="1">Anna</option>
+    <option value="2">Elena</option>
+    <option value="3">Anton</option>
+  </select>
+					 </div>
+				</div>
+				
+			</form>
+		</div>
+		<div class="row">
+			<div class="col s12 input-field center-align">
+				<a class="btn waves-effect waves-light red" href="list.html"><i class="material-icons left">list</i>back to list</a> <a class="btn waves-effect waves-light green"
+					href="#"><i class="material-icons left">save</i>Save</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
