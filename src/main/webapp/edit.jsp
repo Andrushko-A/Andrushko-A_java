@@ -1,26 +1,6 @@
-<html>
-
-<head>
-<title>Task List</title>
-
-<!-- Compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-<nav class="blue lighten-1" role="navigation">
-	<div class="nav-wrapper container">
-		<ul class="right hide-on-med-and-down">
-		<li><a href="index.html">Task list</a></li>
-			<li><a href="tasks.html">Tasks</a></li>
-			<li><a href="participants.html">Participants</a></li>
-			<li><a href="#">Settings</a></li>
-			<li><a class="btn-small btn-floating waves-effect waves-light blue" title="выйти" href="#"><i class="material-icons">input</i></a></li>
-		</ul>
-	</div>
-	
-</nav>
-
-<body>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %> 
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<t:wrapper>
 
 
 <div class="section no-pad-bot" id="index-banner">
@@ -62,14 +42,11 @@
 		</div>
 		<div class="row">
 			<div class="col s12 input-field center-align">
-				<a class="btn waves-effect waves-light red" href="list.html"><i class="material-icons left">list</i>back to list</a> <a class="btn waves-effect waves-light green"
+				<a class="btn waves-effect waves-light red" href="index.jsp"><i class="material-icons left">list</i>back to list</a> <a class="btn waves-effect waves-light green"
 					href="#"><i class="material-icons left">save</i>Save</a>
 			</div>
 		</div>
 	</div>
 </div>
 
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</body>
-</html>
+</t:wrapper>
