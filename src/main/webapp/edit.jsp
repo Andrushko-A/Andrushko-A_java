@@ -3,8 +3,7 @@
 <t:wrapper>
 
 
-<div class="section no-pad-bot" id="index-banner">
-	<div class="container">
+
 		<h1>Edit tasks</h1>
 
 
@@ -46,7 +45,6 @@
 					href="#"><i class="material-icons left">save</i>Save</a>
 			</div>
 		</div>
-	</div>
-</div>
+
 
 </t:wrapper>

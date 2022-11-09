@@ -2,8 +2,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:wrapper>
 
-<div class="section no-pad-bot" id="index-banner">
-	<div class="container">
+
 		<h1>Tasks</h1>
 		
 		<table>
@@ -20,19 +19,19 @@
 					<td>1</td>
 					<td>Going to shop</td>
 					
-					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="ÑÐ´Ð°Ð»Ð¸ÑÑ" href="#"><i class="material-icons">delete</i></a></td>
+					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="Удалить" href="#"><i class="material-icons">delete</i></a></td>
 				</tr>
 				<tr>
 					<td>2</td>
 					<td>Taking out a trash</td>
 					
-					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="ÑÐ´Ð°Ð»Ð¸ÑÑ" href="#"><i class="material-icons">delete</i></a></td>
+					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="Удалить" href="#"><i class="material-icons">delete</i></a></td>
 				</tr>
 				<tr>
 					<td>3</td>
 					<td>Prip a presentation</td>
 					
-					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="ÑÐ´Ð°Ð»Ð¸ÑÑ" href="#"><i class="material-icons">delete</i></a></td>
+					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="Удалить" href="#"><i class="material-icons">delete</i></a></td>
 				</tr>
 				
 			</tbody>
@@ -45,7 +44,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
+
 
 </t:wrapper>
