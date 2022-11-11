@@ -1,9 +1,10 @@
 <%@tag description="Page template" pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <html>
 
 <head>
-<title>Task List</title>
 
+<title><c:out value = "${pageTitle}"/></title>
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
