@@ -8,3 +8,4 @@
 	<listener>
 		<listener-class>by.grsu.aandrushko.todolist.web.context.AppStartupListener</listener-class>
 	</listener>
+	</web-app>
