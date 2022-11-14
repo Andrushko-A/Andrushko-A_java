@@ -13,10 +13,20 @@
 		<servlet-name>ParticipantServlet</servlet-name>
 		<servlet-class>by.grsu.aandrushko.todolist.web.servlet.ParticipantServlet</servlet-class>
 	</servlet>
+	
+	<servlet>
+		<servlet-name>TaskTypeServlet</servlet-name>
+		<servlet-class>by.grsu.aandrushko.todolist.web.servlet.TaskTypeServlet</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>ParticipantServlet</servlet-name>
 		<url-pattern>/participant</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>TaskTypeServlet</servlet-name>
+		<url-pattern>/tasktype</url-pattern>
 	</servlet-mapping>
 	
 	</web-app>
