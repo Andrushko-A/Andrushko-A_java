@@ -25,9 +25,9 @@ import by.grsu.aandrushko.todolist.db.model.Team;
 import by.grsu.aandrushko.todolist.web.dto.TaskListDto;
 
 public class TaskListServlet extends HttpServlet {
-	private static final IDao<Integer, Car> carDao = CarDaoImpl.INSTANCE;
-	private static final IDao<Integer, Model> modelDao = ModelDaoImpl.INSTANCE;
-	private static final IDao<Integer, UserAccount> userAccountDao = UserAccountDaoImpl.INSTANCE;
+	private static final IDao<Integer, TaskList> tasklistDao = TaskListDaoImpl.INSTANCE;
+	private static final IDao<Integer, Task> taskDao = TaskDaoImpl.INSTANCE;
+	private static final IDao<Integer, Participant> participantDao = ParticipantDaoImpl.INSTANCE;
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -41,40 +41,46 @@ public class TaskListServlet extends HttpServlet {
 	}
 
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Car> cars = carDao.getAll(); // get data
+		List<TaskList> cars = tasklistDao.getAll(); // get data
 
-		List<CarDto> dtos = cars.stream().map((entity) -> {
-			CarDto dto = new CarDto();
+		List<TaskListDto> dtos = taskslist.stream().map((entity) -> {
+			TaskListDto dto = new TaskListDto();
 			// copy necessary fields as-is
 			dto.setId(entity.getId());
-			dto.setVin(entity.getVin());
-			dto.setCreated(entity.getCreated());
-			dto.setUpdated(entity.getUpdated());
+			dto.setDeadline(entity.getDeadline());
+			dto.setDateOfCorrection(entity.getDateOfCorrection());
+			dto.setStatus(entity.getStatus());
 
 			// build data for complex fields
-			Model model = modelDao.getById(entity.getModelId());
-			dto.setModelName(model.getName());
+			Task task = taskDao.getById(entity.getTaskId());
+			dto.setTaskName(task.getName());
 
-			UserAccount user = userAccountDao.getById(entity.getOwnerId());
-			dto.setOwnerName(user.getLastName() + " " + user.getFirstName());
+			Participant participant = ParticipantDao.getById(entity.getParticipantId());
+			dto.setParticipantName(participant.getName());
+			
+			Team team = teamDao.getById(entity.getTeamId());
+			dto.setTeamName(task.getName());
+			
 			return dto;
 		}).collect(Collectors.toList());
 
 		req.setAttribute("list", dtos); // set data as request attribute (like "add to map") to be used later in JSP
-		req.getRequestDispatcher("car-list.jsp").forward(req, res); // delegate request processing to JSP
+		req.getRequestDispatcher("index.jsp").forward(req, res); // delegate request processing to JSP
 	}
 
 	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String carIdStr = req.getParameter("id");
-		CarDto dto = new CarDto();
-		if (!Strings.isNullOrEmpty(carIdStr)) {
+		TaskListDto dto = new TaskListDto();
+		if (!Strings.isNullOrEmpty(tasklistIdStr)) {
 			// object edit
-			Integer carId = Integer.parseInt(carIdStr);
-			Car entity = carDao.getById(carId);
+			Integer tasklistId = Integer.parseInt(tasklistIdStr);
+			TaskList entity = tasklistDao.getById(tasklistId);
 			dto.setId(entity.getId());
-			dto.setVin(entity.getVin());
-			dto.setModelId(entity.getModelId());
-			dto.setOwnerId(entity.getOwnerId());
+			dto.setStatus(entity.getStatus());
+			dto.setTaskId(entity.getTaskId());
+			dto.setTeamId(entity.getTeamId());
+			dto.setParticipantId(entity.getTaskId());
+			
 		}
 		req.setAttribute("dto", dto);
 		req.getRequestDispatcher("car-edit.jsp").forward(req, res);
@@ -83,30 +89,24 @@ public class TaskListServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doPost");
-		Car car = new Car();
-		String carIdStr = req.getParameter("id");
-		String modelIdStr = req.getParameter("modelId");
-		String ownerIdStr = req.getParameter("ownerId");
+		TaskList tasklist = new TaskList();
+		String tasklistIdStr = req.getParameter("id");
+		String taskIdStr = req.getParameter("taskId");
+		String participantIdStr = req.getParameter("participantId");
+		String teamIdStr = req.getParameter("teamId");
 
-		car.setVin(req.getParameter("vin"));
-		car.setModelId(modelIdStr == null ? null : Integer.parseInt(modelIdStr));
-		car.setOwnerId(ownerIdStr == null ? null : Integer.parseInt(ownerIdStr));
-		car.setUpdated(new Timestamp(new Date().getTime()));
-		if (Strings.isNullOrEmpty(carIdStr)) {
-			// new entity
-			car.setCreated(new Timestamp(new Date().getTime()));
-			carDao.insert(car);
-		} else {
-			// updated entity
-			car.setId(Integer.parseInt(carIdStr));
-			carDao.update(car);
-		}
+		tasklist.setStatus(false);
+		tasklist.setDeadline(new Timestamp(new Date().getTime()));
+        tasklist.setTaskId(taskIdStr == null ? null : Integer.parseInt(taskIdStr));
+		tasklist.setParticipantId(participantIdStr == null ? null : Integer.parseInt(participantIdStr));
+		tasklist.setTeamId(teamIdStr == null ? null : Integer.parseInt(teamIdStr));
+		tasklist.setDateOfCorrection(new Timestamp(new Date().getTime()));
 		res.sendRedirect("/car"); // will send 302 back to client and client will execute GET /car
 	}
 
 	@Override
 	public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doDelete");
-		carDao.delete(Integer.parseInt(req.getParameter("id")));
+		tasklistDao.delete(Integer.parseInt(req.getParameter("id")));
 	}
 }
