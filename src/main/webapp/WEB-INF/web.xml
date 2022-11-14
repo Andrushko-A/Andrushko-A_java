@@ -8,4 +8,15 @@
 	<listener>
 		<listener-class>by.grsu.aandrushko.todolist.web.context.AppStartupListener</listener-class>
 	</listener>
+	
+	<servlet>
+		<servlet-name>ParticipantServlet</servlet-name>
+		<servlet-class>by.grsu.aandrushko.todolist.web.servlet.ParticipantServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ParticipantServlet</servlet-name>
+		<url-pattern>/participant</url-pattern>
+	</servlet-mapping>
+	
 	</web-app>
