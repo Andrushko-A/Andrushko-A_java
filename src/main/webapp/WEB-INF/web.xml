@@ -18,6 +18,11 @@
 		<servlet-name>TaskTypeServlet</servlet-name>
 		<servlet-class>by.grsu.aandrushko.todolist.web.servlet.TaskTypeServlet</servlet-class>
 	</servlet>
+	
+	<servlet>
+		<servlet-name>TeamServlet</servlet-name>
+		<servlet-class>by.grsu.aandrushko.todolist.web.servlet.TeamServlet</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>ParticipantServlet</servlet-name>
@@ -27,6 +32,11 @@
 	<servlet-mapping>
 		<servlet-name>TaskTypeServlet</servlet-name>
 		<url-pattern>/tasktype</url-pattern>
+	</servlet-mapping>
+	
+		<servlet-mapping>
+		<servlet-name>TeamServlet</servlet-name>
+		<url-pattern>/team</url-pattern>
 	</servlet-mapping>
 	
 	</web-app>
