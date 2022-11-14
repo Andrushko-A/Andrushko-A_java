@@ -102,7 +102,7 @@ public class TaskListServlet extends HttpServlet {
 		tasklist.setParticipantId(participantIdStr == null ? null : Integer.parseInt(participantIdStr));
 		tasklist.setTeamId(teamIdStr == null ? null : Integer.parseInt(teamIdStr));
 		tasklist.setDateOfCorrection(new Timestamp(new Date().getTime()));
-		res.sendRedirect("/car"); // will send 302 back to client and client will execute GET /car
+		res.sendRedirect("/taskList"); // will send 302 back to client and client will execute GET /car
 	}
 
 	@Override
