@@ -59,7 +59,8 @@ public class TaskListServlet extends HttpServlet {
 			dto.setParticipantName(participant.getName());
 			
 			Team team = teamDao.getById(entity.getTeamId());
-			dto.setTeamName(task.getName());
+			dto.setTeamName(team.getName());
+			dto.setNumberOfPart(team.getNumberOfPaart());
 			
 			return dto;
 		}).collect(Collectors.toList());
@@ -95,7 +96,7 @@ public class TaskListServlet extends HttpServlet {
 		String participantIdStr = req.getParameter("participantId");
 		String teamIdStr = req.getParameter("teamId");
 
-		tasklist.setStatus(false);
+		tasklist.setStatus(Boolean.parseBoolean(req.getParameter("status")));
 		tasklist.setDeadline(new Timestamp(new Date().getTime()));
         tasklist.setTaskId(taskIdStr == null ? null : Integer.parseInt(taskIdStr));
 		tasklist.setParticipantId(participantIdStr == null ? null : Integer.parseInt(participantIdStr));
