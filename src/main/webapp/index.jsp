@@ -8,7 +8,7 @@
 
 	<h1>Task list</h1>
 
-	<table class="highlight">
+	<table>
 		<thead>
 			<tr>
 				<th>id</th>
@@ -33,18 +33,16 @@
 					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${entity.dateOfCorrection}" /></td>
 					<td><c:out value="${entity.status}" /></td>
 					<td><c:out value="${entity.teamName}" /></td>
-					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="редактировать" href="/tasklist?view=edit&id=${entity.id}"><i
-							class="material-icons">edit</i></a><a class="btn-small btn-floating waves-effect waves-light red" title="удалить" onclick="sendHTTPDelete('/tasklist?id=${entity.id}')"><i class="material-icons">delete</i></a></td>
+					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="редактировать" href="/taskList?view=edit&id=${entity.id}"><i
+							class="material-icons">edit</i></a><a class="btn-small btn-floating waves-effect waves-light red" title="удалить" onclick="sendHTTPDelete('/taskList?id=${entity.id}')"><i class="material-icons">delete</i></a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-	<div class="row"></div>
 	<div class="row">
 		<div class="col s12">
 			<div class="center-align">
-				<a class="btn-floating btn-large waves-effect waves-light blue"
-					href="edit.jsp"><i class="material-icons">add</i></a>
+				<a class="btn-floating btn-large waves-effect waves-light" href="/taskList?view=edit"><i class="material-icons">add</i></a>
 			</div>
 		</div>
 	</div>

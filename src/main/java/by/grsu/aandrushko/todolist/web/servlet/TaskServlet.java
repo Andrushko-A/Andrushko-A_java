@@ -1,8 +1,6 @@
 package by.grsu.aandrushko.todolist.web.servlet;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,7 +47,7 @@ public class TaskServlet extends HttpServlet {
 		}).collect(Collectors.toList());
 
 		req.setAttribute("list", dtos);
-		req.getRequestDispatcher("model-list.jsp").forward(req, res);
+		req.getRequestDispatcher("task.jsp").forward(req, res);
 	}
 
 	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -63,7 +61,7 @@ public class TaskServlet extends HttpServlet {
 			dto.setTaskTypeId(entity.getTaskTypeId());
 		}
 		req.setAttribute("dto", dto);
-		req.getRequestDispatcher("model-edit.jsp").forward(req, res);
+		req.getRequestDispatcher("task-edit.jsp").forward(req, res);
 	}
 
 	@Override
@@ -74,6 +72,12 @@ public class TaskServlet extends HttpServlet {
 		String tasktypeIdStr = req.getParameter("tasktypeId");
 		task.setName(req.getParameter("name"));
 		task.setTaskTypeId(tasktypeIdStr == null ? null : Integer.parseInt(tasktypeIdStr));
+		if (Strings.isNullOrEmpty(taskIdStr)) {
+			taskDao.insert(task);
+		} else {
+			task.setId(Integer.parseInt(taskIdStr));
+			taskDao.update(task);
+		}
 
 		res.sendRedirect("/task");
 	}

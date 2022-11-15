@@ -86,7 +86,7 @@ public class TaskListServlet extends HttpServlet {
 			
 		}
 		req.setAttribute("dto", dto);
-		req.getRequestDispatcher("edit.jsp").forward(req, res);
+		req.getRequestDispatcher("taskList-edit.jsp").forward(req, res);
 	}
 
 	@Override
@@ -104,6 +104,13 @@ public class TaskListServlet extends HttpServlet {
 		tasklist.setParticipantId(participantIdStr == null ? null : Integer.parseInt(participantIdStr));
 		tasklist.setTeamId(teamIdStr == null ? null : Integer.parseInt(teamIdStr));
 		tasklist.setDateOfCorrection(new Timestamp(new Date().getTime()));
+		if (Strings.isNullOrEmpty(tasklistIdStr)) {
+			tasklist.setDateOfCorrection(new Timestamp(new Date().getTime()));
+			tasklistDao.insert(tasklist);
+		} else {
+			tasklist.setId(Integer.parseInt(tasklistIdStr));
+			tasklistDao.update(tasklist);
+		}
 		res.sendRedirect("/taskList"); // will send 302 back to client and client will execute GET /car
 	}
 
