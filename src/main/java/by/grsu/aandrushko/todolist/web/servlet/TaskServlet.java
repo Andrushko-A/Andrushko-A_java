@@ -36,7 +36,7 @@ public class TaskServlet extends HttpServlet {
 	}
 
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Task> models = taskDao.getAll(); // get data
+		List<Task> tasks = taskDao.getAll(); // get data
 
 		List<TaskDto> dtos = tasks.stream().map((entity) -> {
 			TaskDto dto = new TaskDto();
@@ -45,7 +45,6 @@ public class TaskServlet extends HttpServlet {
 
 			TaskType tasktype = tasktypeDao.getById(entity.getTaskTypeId());
 			dto.setTaskTypeName(tasktype.getName());
-			dto.setDateOfCorrection(tasktype.getDateOfCorrectiom());
 			return dto;
 		}).collect(Collectors.toList());
 

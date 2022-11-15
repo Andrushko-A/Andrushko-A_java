@@ -2,6 +2,7 @@ package by.grsu.aandrushko.todolist.web.servlet;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,8 +27,9 @@ import by.grsu.aandrushko.todolist.web.dto.TaskListDto;
 
 public class TaskListServlet extends HttpServlet {
 	private static final IDao<Integer, TaskList> tasklistDao = TaskListDaoImpl.INSTANCE;
-	private static final IDao<Integer, Task> taskDao = TaskDaoImpl.INSTANCE;
+	private static final IDao<Integer, Task> taskDao = TaskDaoImpl.INSTANCE; 
 	private static final IDao<Integer, Participant> participantDao = ParticipantDaoImpl.INSTANCE;
+	private static final IDao<Integer, Team> teamDao = TeamDaoImpl.INSTANCE;
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -41,7 +43,7 @@ public class TaskListServlet extends HttpServlet {
 	}
 
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<TaskList> cars = tasklistDao.getAll(); // get data
+		List<TaskList> taskslist = tasklistDao.getAll(); // get data
 
 		List<TaskListDto> dtos = taskslist.stream().map((entity) -> {
 			TaskListDto dto = new TaskListDto();
@@ -55,12 +57,12 @@ public class TaskListServlet extends HttpServlet {
 			Task task = taskDao.getById(entity.getTaskId());
 			dto.setTaskName(task.getName());
 
-			Participant participant = ParticipantDao.getById(entity.getParticipantId());
+			Participant participant = participantDao.getById(entity.getParticipantId());
 			dto.setParticipantName(participant.getName());
 			
 			Team team = teamDao.getById(entity.getTeamId());
 			dto.setTeamName(team.getName());
-			dto.setNumberOfPart(team.getNumberOfPaart());
+
 			
 			return dto;
 		}).collect(Collectors.toList());
@@ -70,7 +72,7 @@ public class TaskListServlet extends HttpServlet {
 	}
 
 	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String carIdStr = req.getParameter("id");
+		String tasklistIdStr = req.getParameter("id");
 		TaskListDto dto = new TaskListDto();
 		if (!Strings.isNullOrEmpty(tasklistIdStr)) {
 			// object edit
@@ -84,7 +86,7 @@ public class TaskListServlet extends HttpServlet {
 			
 		}
 		req.setAttribute("dto", dto);
-		req.getRequestDispatcher("car-edit.jsp").forward(req, res);
+		req.getRequestDispatcher("edit.jsp").forward(req, res);
 	}
 
 	@Override
