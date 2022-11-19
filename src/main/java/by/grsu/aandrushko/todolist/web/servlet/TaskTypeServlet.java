@@ -18,8 +18,8 @@ public class TaskTypeServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Integer tasktypeId = Integer.parseInt(req.getParameter("id")); // read request parameter
-		TaskType tasktypeById = participantDao.getById(tasktypeId); // from DB
+		Integer taskTypeId = Integer.parseInt(req.getParameter("id")); // read request parameter
+		TaskType taskTypeById = participantDao.getById(taskTypeId); // from DB
 
 		res.setContentType("text/html");// setting the content type
 
@@ -28,10 +28,10 @@ public class TaskTypeServlet extends HttpServlet {
 		// writing html in the stream
 		pw.println("<html><body>");
 
-		if (tasktypeById == null) {
-			pw.println("no participant by id=" + tasktypeId);
+		if (taskTypeById == null) {
+			pw.println("no taskTypeId by id=" + taskTypeId);
 		} else {
-			pw.println(tasktypeById.toString());
+			pw.println(taskTypeById.toString());
 		}
 
 		pw.println("</body></html>");
@@ -45,7 +45,7 @@ public class TaskTypeServlet extends HttpServlet {
 		pw.println("<html><body>");
 		try {
 			String paramName = req.getParameter("name");
-			Long paramDateOfCorrection = Long.parseLong(req.getParameter("DateOfCorrection"));
+			Long paramDateOfCorrection = Long.parseLong(req.getParameter("dateOfCorrection"));
 			TaskType tasktypeEntity = new TaskType();
 			tasktypeEntity.setName(paramName);
 			tasktypeEntity.setDateOfCorrection(new Timestamp(paramDateOfCorrection));

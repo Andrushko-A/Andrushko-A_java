@@ -1,6 +1,8 @@
 package by.grsu.aandrushko.todolist.web.servlet;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,7 +49,7 @@ public class TaskServlet extends HttpServlet {
 		}).collect(Collectors.toList());
 
 		req.setAttribute("list", dtos);
-		req.getRequestDispatcher("task.jsp").forward(req, res);
+		req.getRequestDispatcher("tasks.jsp").forward(req, res);
 	}
 
 	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -69,15 +71,10 @@ public class TaskServlet extends HttpServlet {
 		System.out.println("doPost");
 		Task task = new Task();
 		String taskIdStr = req.getParameter("id");
-		String tasktypeIdStr = req.getParameter("tasktypeId");
+		String taskTypeIdStr = req.getParameter("taskTypeId");
 		task.setName(req.getParameter("name"));
-		task.setTaskTypeId(tasktypeIdStr == null ? null : Integer.parseInt(tasktypeIdStr));
-		if (Strings.isNullOrEmpty(taskIdStr)) {
-			taskDao.insert(task);
-		} else {
-			task.setId(Integer.parseInt(taskIdStr));
-			taskDao.update(task);
-		}
+		task.setTaskTypeId(taskTypeIdStr == null ? null : Integer.parseInt(taskTypeIdStr));
+		
 
 		res.sendRedirect("/task");
 	}

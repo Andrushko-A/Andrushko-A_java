@@ -43,7 +43,7 @@ public class AppStartupListener implements ServletContextListener {
 
 	private void loadInitialData() {
 		Participant participantEntity = new Participant();
-		participantEntity.setName("Andrey");
+		participantEntity.setName("Anna");
 		participantDao.insert(participantEntity);
 		System.out.println("created: " + participantEntity);
 		

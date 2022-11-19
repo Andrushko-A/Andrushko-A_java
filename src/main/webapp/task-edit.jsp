@@ -16,12 +16,12 @@
 			<input type="hidden" name="id" value="${dto.id}" />
 			<div class="row">
              <div class="input-field col s6">
-					<input type="text" name="taskId" value="${dto.name}"> <label for="taskId">Name</label>
+					<input type="text" name="name" value="${dto.name}"> <label for="name">Name</label>
 				</div>
 				</div>
 			<div class="row">
 				<div class="input-field col s6">
-					<input type="text" name="taskId" value="${dto.taskTypeName}"> <label for="tasktypeId">Type</label>
+					<input type="text" name="taskTypeId" value="${dto.taskTypeId}"> <label for="taskTypeId">Type</label>
 				</div>
 			</div>
 		</div>
