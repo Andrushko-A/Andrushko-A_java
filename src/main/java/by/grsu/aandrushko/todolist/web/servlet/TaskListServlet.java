@@ -82,7 +82,7 @@ public class TaskListServlet extends HttpServlet {
 			dto.setStatus(entity.getStatus());
 			dto.setTaskId(entity.getTaskId());
 			dto.setTeamId(entity.getTeamId());
-			dto.setParticipantId(entity.getTaskId());
+			dto.setParticipantId(entity.getParticipantId());
 			
 		}
 		req.setAttribute("dto", dto);

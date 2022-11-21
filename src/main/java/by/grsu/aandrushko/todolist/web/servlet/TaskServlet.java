@@ -49,7 +49,7 @@ public class TaskServlet extends HttpServlet {
 		}).collect(Collectors.toList());
 
 		req.setAttribute("list", dtos);
-		req.getRequestDispatcher("tasks.jsp").forward(req, res);
+		req.getRequestDispatcher("task.jsp").forward(req, res);
 	}
 
 	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -72,6 +72,7 @@ public class TaskServlet extends HttpServlet {
 		Task task = new Task();
 		String taskIdStr = req.getParameter("id");
 		String taskTypeIdStr = req.getParameter("taskTypeId");
+		
 		task.setName(req.getParameter("name"));
 		task.setTaskTypeId(taskTypeIdStr == null ? null : Integer.parseInt(taskTypeIdStr));
 		

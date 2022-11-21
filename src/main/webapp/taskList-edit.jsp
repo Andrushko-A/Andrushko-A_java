@@ -22,13 +22,13 @@
 				</div>
 			<div class="row">
 				<div class="input-field col s6">
-					<input type="text" name="modelId" value="${dto.taskId}"> <label for="taskId">Task ID</label>
+					<input type="text" name="taskId" value="${dto.taskId}"> <label for="taskId">Task ID</label>
 				</div>
 				<div class="input-field col s6">
-					<input type="text" name="ownerId" value="${dto.participantId}"> <label for="participantId">Participant ID</label>
+					<input type="text" name="participantId" value="${dto.participantId}"> <label for="participantId">Participant ID</label>
 				</div>
 				<div class="input-field col s6">
-					<input type="text" name="modelId" value="${dto.teamId}"> <label for="teamId">Team ID</label>
+					<input type="text" name="teamId" value="${dto.teamId}"> <label for="teamId">Team ID</label>
 				</div>
 			</div>
 		</div>

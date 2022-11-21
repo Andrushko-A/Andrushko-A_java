@@ -1,5 +1,6 @@
 package by.grsu.aandrushko.todolist.server;
 
+
 import java.net.MalformedURLException;
 
 import org.eclipse.jetty.server.HttpConfiguration;
@@ -46,7 +47,6 @@ public final class StartJetty {
 		bb.setServer(server);
 		bb.setContextPath("/");
 		bb.setWar("src/main/webapp");
-
 		server.setHandler(bb);
 
 		try {
