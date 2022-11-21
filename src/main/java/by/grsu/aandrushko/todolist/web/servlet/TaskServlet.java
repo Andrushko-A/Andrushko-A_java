@@ -76,6 +76,14 @@ public class TaskServlet extends HttpServlet {
 		task.setName(req.getParameter("name"));
 		task.setTaskTypeId(taskTypeIdStr == null ? null : Integer.parseInt(taskTypeIdStr));
 		
+		if (Strings.isNullOrEmpty(taskIdStr)) {
+			task.setName("andrey");
+			taskDao.insert(task);
+		} else {
+			task.setId(Integer.parseInt(taskIdStr));
+			taskDao.update(task);
+		}
+		
 
 		res.sendRedirect("/task");
 	}

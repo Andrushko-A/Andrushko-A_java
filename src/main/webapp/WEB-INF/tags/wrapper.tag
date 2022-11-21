@@ -18,9 +18,9 @@
 <nav class="light-blue lighten-1" role="navigation">
 	<div class="nav-wrapper container">
 		<ul class="right hide-on-med-and-down">
-		<li><a href="index.jsp">Task list</a></li>
-			<li><a href="tasks.jsp">Tasks</a></li>
-			<li><a href="participants.jsp">Participants</a></li>
+		<li><a href="/taskList">Task list</a></li>
+			<li><a href="/task">Tasks</a></li>
+			<li><a href="/participant">Participants</a></li>
 			<li><a href="#">Settings</a></li>
 			<li><a href='#'><% java.util.Date date = new java.util.Date(); out.print(date.toString()); %>
 			</a></li>
