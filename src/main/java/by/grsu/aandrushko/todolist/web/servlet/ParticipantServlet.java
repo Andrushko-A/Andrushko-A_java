@@ -1,60 +1,100 @@
 package by.grsu.aandrushko.todolist.web.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.base.Strings;
+
 import by.grsu.aandrushko.todolist.db.dao.IDao;
+import by.grsu.aandrushko.todolist.web.dto.ParticipantDto;
+import by.grsu.aandrushko.todolist.db.dao.impl.TaskListDaoImpl;
 import by.grsu.aandrushko.todolist.db.dao.impl.ParticipantDaoImpl;
+import by.grsu.aandrushko.todolist.db.model.TaskList;
 import by.grsu.aandrushko.todolist.db.model.Participant;
+
+
+
+
 
 public class ParticipantServlet extends HttpServlet {
 	private static final IDao<Integer, Participant> participantDao = ParticipantDaoImpl.INSTANCE;
+	private static final IDao<Integer, TaskList> taskListDao = TaskListDaoImpl.INSTANCE;
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Integer participantId = Integer.parseInt(req.getParameter("id")); // read request parameter
-		Participant participantById = participantDao.getById(participantId); // from DB
-
-		res.setContentType("text/html");// setting the content type
-
-		PrintWriter pw = res.getWriter();// get the stream to write the data
-
-		// writing html in the stream
-		pw.println("<html><body>");
-
-		if (participantById == null) {
-			pw.println("no participant by id=" + participantId);
+		System.out.println("doGet");
+		String viewParam = req.getParameter("view");
+		if ("edit".equals(viewParam)) {
+			handleEditView(req, res);
 		} else {
-			pw.println(participantById.toString());
+			handleListView(req, res);
 		}
+	}
 
-		pw.println("</body></html>");
-		pw.close();// closing the stream
+	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		List<Task> tasks = taskDao.getAll(); // get data
+
+		List<TaskDto> dtos = tasks.stream().map((entity) -> {
+			TaskDto dto = new TaskDto();
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+
+			TaskType tasktype = tasktypeDao.getById(entity.getTaskTypeId());
+			dto.setTaskTypeName(tasktype.getName());
+			return dto;
+		}).collect(Collectors.toList());
+
+		req.setAttribute("list", dtos);
+		req.getRequestDispatcher("task.jsp").forward(req, res);
+	}
+
+	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		String taskIdStr = req.getParameter("id");
+		TaskDto dto = new TaskDto();
+		if (!Strings.isNullOrEmpty(taskIdStr)) {
+			Integer taskId = Integer.parseInt(taskIdStr);
+			Task entity = taskDao.getById(taskId);
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+			dto.setTaskTypeId(entity.getTaskTypeId());
+		}
+		req.setAttribute("dto", dto);
+		req.getRequestDispatcher("task-edit.jsp").forward(req, res);
 	}
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		res.setContentType("text/html");
-		PrintWriter pw = res.getWriter();// get the stream to write the data
-		pw.println("<html><body>");
-		try {
-			String paramName = req.getParameter("name");
-			Participant participantEntity = new Participant();
-			participantEntity.setName(paramName);
-			participantDao.insert(participantEntity);
-			pw.println("Saved:" + participantEntity);
-
-		} catch (Exception e) {
-			pw.println("Error:" + e.toString());
+		System.out.println("doPost");
+		Task task = new Task();
+		String taskIdStr = req.getParameter("id");
+		String taskTypeIdStr = req.getParameter("taskTypeId");
+		
+		task.setName(req.getParameter("name"));
+		task.setTaskTypeId(taskTypeIdStr == null ? null : Integer.parseInt(taskTypeIdStr));
+		
+		if (Strings.isNullOrEmpty(taskIdStr)) {
+			task.setName("andrey");
+			taskDao.insert(task);
+		} else {
+			task.setId(Integer.parseInt(taskIdStr));
+			taskDao.update(task);
 		}
+		
 
-		pw.println("</body></html>");
-		pw.close();
+		res.sendRedirect("/task");
+	}
+
+	@Override
+	public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		System.out.println("doDelete");
+		taskDao.delete(Integer.parseInt(req.getParameter("id")));
 	}
 }

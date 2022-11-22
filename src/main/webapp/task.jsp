@@ -22,7 +22,7 @@
 				<tr>
 					<td><c:out value="${entity.id}" /></td>
 					<td><c:out value="${entity.name}" /></td>
-					<td><c:out value="${entity.tasktype}" /></td>
+					<td><c:out value="${entity.taskTypeId}" /></td>
 					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="редактировать" href="/task?view=edit&id=${entity.id}"><i
 							class="material-icons">edit</i></a><a class="btn-small btn-floating waves-effect waves-light red" title="удалить" onclick="sendHTTPDelete('/task?id=${entity.id}')"><i class="material-icons">delete</i></a></td>
 				</tr>
