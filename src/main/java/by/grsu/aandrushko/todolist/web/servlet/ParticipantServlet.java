@@ -37,12 +37,12 @@ public class ParticipantServlet extends HttpServlet {
 		if (!Strings.isNullOrEmpty(participantIdStr)) {
 			Integer participantId = Integer.parseInt(participantIdStr);
 			 List<TaskList> taskEntities = taskListDao.getByParticipant(participantId);
-			dto.setId(entity.getId());
-			dto.setName(entity.getName());
+			//dto.setId(entity.getId());
+			//dto.setName(entity.getName());
 			//dto.setTaskListId(participantId);
 		}
 		req.setAttribute("dto", dto);
-		req.setAttribute("dto", dto);
+		req.setAttribute("participantId", participantIdStr);
 		
 		req.getRequestDispatcher("participant.jsp").forward(req, res);
 	}
