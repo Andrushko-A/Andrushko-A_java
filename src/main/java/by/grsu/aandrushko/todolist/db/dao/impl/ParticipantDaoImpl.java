@@ -91,6 +91,7 @@ public class ParticipantDaoImpl extends AbstractDao implements IDao<Integer, Par
 		return entitiesList;
 	}
 	
+	
 	private Participant rowToEntity(ResultSet rs) throws SQLException{
 		Participant entity = new Participant();
 		entity.setId(rs.getInt("id"));

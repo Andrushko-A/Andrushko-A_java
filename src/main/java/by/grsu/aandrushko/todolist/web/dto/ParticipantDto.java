@@ -29,11 +29,6 @@ public class ParticipantDto {
 		this.taskListId = taskListId;
 	}
 
-		
-		
-		
-
-
 	}
 
 

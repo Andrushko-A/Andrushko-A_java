@@ -18,6 +18,7 @@ import by.grsu.aandrushko.todolist.web.dto.ParticipantDto;
 import by.grsu.aandrushko.todolist.db.dao.impl.TaskListDaoImpl;
 import by.grsu.aandrushko.todolist.db.dao.impl.ParticipantDaoImpl;
 import by.grsu.aandrushko.todolist.db.model.TaskList;
+import by.grsu.aandrushko.todolist.db.model.TaskType;
 import by.grsu.aandrushko.todolist.db.model.Participant;
 
 
@@ -26,75 +27,47 @@ import by.grsu.aandrushko.todolist.db.model.Participant;
 
 public class ParticipantServlet extends HttpServlet {
 	private static final IDao<Integer, Participant> participantDao = ParticipantDaoImpl.INSTANCE;
-	private static final IDao<Integer, TaskList> taskListDao = TaskListDaoImpl.INSTANCE;
+	private static final TaskListDaoImpl taskListDao = TaskListDaoImpl.INSTANCE;
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doGet");
-		String viewParam = req.getParameter("view");
-		if ("edit".equals(viewParam)) {
-			handleEditView(req, res);
-		} else {
-			handleListView(req, res);
+		String participantIdStr = req.getParameter("id");
+		ParticipantDto dto = new ParticipantDto();
+		if (!Strings.isNullOrEmpty(participantIdStr)) {
+			Integer participantId = Integer.parseInt(participantIdStr);
+			 List<TaskList> taskEntities = taskListDao.getByParticipant(participantId);
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+			//dto.setTaskListId(participantId);
 		}
+		req.setAttribute("dto", dto);
+		req.setAttribute("dto", dto);
+		
+		req.getRequestDispatcher("participant.jsp").forward(req, res);
 	}
 
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Task> tasks = taskDao.getAll(); // get data
+		List<Participant> participants = participantDao.getAll(); // get data
 
-		List<TaskDto> dtos = tasks.stream().map((entity) -> {
-			TaskDto dto = new TaskDto();
+		List<ParticipantDto> dtos = participants.stream().map((entity) -> {
+			ParticipantDto dto = new ParticipantDto();
 			dto.setId(entity.getId());
 			dto.setName(entity.getName());
+			
 
-			TaskType tasktype = tasktypeDao.getById(entity.getTaskTypeId());
-			dto.setTaskTypeName(tasktype.getName());
+			TaskList taskList = taskListDao.getById(entity.getId());
+			dto.setTaskListId(taskList.getParticipantId());
 			return dto;
 		}).collect(Collectors.toList());
 
 		req.setAttribute("list", dtos);
-		req.getRequestDispatcher("task.jsp").forward(req, res);
+		req.getRequestDispatcher("participant.jsp").forward(req, res);
 	}
 
 	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String taskIdStr = req.getParameter("id");
-		TaskDto dto = new TaskDto();
-		if (!Strings.isNullOrEmpty(taskIdStr)) {
-			Integer taskId = Integer.parseInt(taskIdStr);
-			Task entity = taskDao.getById(taskId);
-			dto.setId(entity.getId());
-			dto.setName(entity.getName());
-			dto.setTaskTypeId(entity.getTaskTypeId());
-		}
-		req.setAttribute("dto", dto);
-		req.getRequestDispatcher("task-edit.jsp").forward(req, res);
+	
 	}
 
-	@Override
-	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println("doPost");
-		Task task = new Task();
-		String taskIdStr = req.getParameter("id");
-		String taskTypeIdStr = req.getParameter("taskTypeId");
-		
-		task.setName(req.getParameter("name"));
-		task.setTaskTypeId(taskTypeIdStr == null ? null : Integer.parseInt(taskTypeIdStr));
-		
-		if (Strings.isNullOrEmpty(taskIdStr)) {
-			task.setName("andrey");
-			taskDao.insert(task);
-		} else {
-			task.setId(Integer.parseInt(taskIdStr));
-			taskDao.update(task);
-		}
-		
-
-		res.sendRedirect("/task");
-	}
-
-	@Override
-	public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println("doDelete");
-		taskDao.delete(Integer.parseInt(req.getParameter("id")));
-	}
+	
 }
