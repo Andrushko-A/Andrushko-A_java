@@ -112,10 +112,7 @@ public class TaskListDaoImpl extends AbstractDao implements IDao<Integer, TaskLi
 		try (Connection c = createConnection()) {
 			
 			
-			PreparedStatement pstmt = c.prepareStatement("select * from task_list where participant_id=?");
-			pstmt.setInt(1, participantId);
-
-			ResultSet rs = pstmt.executeQuery();
+			ResultSet rs = c.createStatement().executeQuery("select * from task_list where participant_id=?");
 			while (rs.next()) {
 				TaskList entity = rowToEntity(rs);
 				entitiesList.add(entity);

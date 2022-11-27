@@ -36,10 +36,7 @@ public class ParticipantServlet extends HttpServlet {
 		ParticipantDto dto = new ParticipantDto();
 		if (!Strings.isNullOrEmpty(participantIdStr)) {
 			Integer participantId = Integer.parseInt(participantIdStr);
-			 List<TaskList> taskEntities = taskListDao.getByParticipant(participantId);
-			//dto.setId(entity.getId());
-			//dto.setName(entity.getName());
-			//dto.setTaskListId(participantId);
+			 List<TaskList> participantEntities = taskListDao.getByParticipant(participantId);
 		}
 		req.setAttribute("dto", dto);
 		req.setAttribute("participantId", participantIdStr);
@@ -63,10 +60,6 @@ public class ParticipantServlet extends HttpServlet {
 
 		req.setAttribute("list", dtos);
 		req.getRequestDispatcher("participant.jsp").forward(req, res);
-	}
-
-	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-	
 	}
 
 	

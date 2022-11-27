@@ -40,6 +40,7 @@ public class TaskServlet extends HttpServlet {
 			TaskDto dto = new TaskDto();
 			dto.setId(entity.getId());
 			dto.setName(entity.getName());
+		
 
 			TaskType tasktype = tasktypeDao.getById(entity.getTaskTypeId());
 			dto.setTaskTypeName(tasktype.getName());

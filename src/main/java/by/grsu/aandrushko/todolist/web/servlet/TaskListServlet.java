@@ -70,6 +70,7 @@ public class TaskListServlet extends HttpServlet {
 		req.setAttribute("list", dtos); // set data as request attribute (like "add to map") to be used later in JSP
 		req.getRequestDispatcher("taskList.jsp").forward(req, res); // delegate request processing to JSP
 	}
+	
 
 	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String tasklistIdStr = req.getParameter("id");

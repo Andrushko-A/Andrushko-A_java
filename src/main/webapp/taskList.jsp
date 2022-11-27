@@ -34,7 +34,10 @@
 					<td><c:out value="${entity.status}" /></td>
 					<td><c:out value="${entity.teamName}" /></td>
 					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="редактировать" href="/taskList?view=edit&id=${entity.id}"><i
-							class="material-icons">edit</i></a><a class="btn-small btn-floating waves-effect waves-light red" title="удалить" onclick="sendHTTPDelete('/taskList?id=${entity.id}')"><i class="material-icons">delete</i></a></td>
+							class="material-icons">edit</i></a>
+							<a class="btn-small btn-floating waves-effect waves-light blue" title="участники" href="/taskList?view=edit&id=${entity.id}"><i
+							class="material-icons">group</i></a>
+							<a class="btn-small btn-floating waves-effect waves-light red" title="удалить" onclick="sendHTTPDelete('/taskList?id=${entity.id}')"><i class="material-icons">delete</i></a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
