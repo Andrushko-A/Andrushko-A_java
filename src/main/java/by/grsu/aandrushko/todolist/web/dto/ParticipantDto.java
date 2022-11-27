@@ -4,11 +4,10 @@ public class ParticipantDto {
 	
 	private Integer id;
 	private String name;
-	private Integer taskListId;
 
 	    @Override
 	public String toString() {
-		return "ParticipantDto [id=" + id + ", name=" + name + ", taskListId=" + taskListId + "]";
+		return "ParticipantDto [id=" + id + ", name=" + name + "]";
 	}
 		public Integer getId() {
 		return id;
@@ -21,12 +20,6 @@ public class ParticipantDto {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public Integer getTaskListId() {
-		return taskListId;
-	}
-	public void setTaskListId(Integer taskListId) {
-		this.taskListId = taskListId;
 	}
 
 	}

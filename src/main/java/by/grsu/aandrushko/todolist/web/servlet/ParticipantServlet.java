@@ -15,6 +15,7 @@ import com.google.common.base.Strings;
 
 import by.grsu.aandrushko.todolist.db.dao.IDao;
 import by.grsu.aandrushko.todolist.web.dto.ParticipantDto;
+import by.grsu.aandrushko.todolist.web.dto.TaskListDto;
 import by.grsu.aandrushko.todolist.db.dao.impl.TaskListDaoImpl;
 import by.grsu.aandrushko.todolist.db.dao.impl.ParticipantDaoImpl;
 import by.grsu.aandrushko.todolist.db.model.TaskList;
@@ -36,31 +37,26 @@ public class ParticipantServlet extends HttpServlet {
 		ParticipantDto dto = new ParticipantDto();
 		if (!Strings.isNullOrEmpty(participantIdStr)) {
 			Integer participantId = Integer.parseInt(participantIdStr);
-			 List<TaskList> participantEntities = taskListDao.getByParticipant(participantId);
-		}
-		req.setAttribute("dto", dto);
+			 List<TaskList> taskslist = taskListDao.getByParticipant(participantId);
+			
+			 
+			 List<ParticipantDto> dtos = taskslist.stream().map((entity) -> {
+				 
+					dto.setId(entity.getParticipantId());
+					
+					return dto;
+
+		}).collect(Collectors.toList());
+					 
+		req.setAttribute("list", dtos);
 		req.setAttribute("participantId", participantIdStr);
 		
 		req.getRequestDispatcher("participant.jsp").forward(req, res);
+		
+		
 	}
 
-	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Participant> participants = participantDao.getAll(); // get data
-
-		List<ParticipantDto> dtos = participants.stream().map((entity) -> {
-			ParticipantDto dto = new ParticipantDto();
-			dto.setId(entity.getId());
-			dto.setName(entity.getName());
-			
-
-			TaskList taskList = taskListDao.getById(entity.getId());
-			dto.setTaskListId(taskList.getParticipantId());
-			return dto;
-		}).collect(Collectors.toList());
-
-		req.setAttribute("list", dtos);
-		req.getRequestDispatcher("participant.jsp").forward(req, res);
-	}
 
 	
+   }
 }
