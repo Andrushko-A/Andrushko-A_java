@@ -16,14 +16,19 @@
 			<input type="hidden" name="id" value="${dto.id}" />
 			<div class="row">
              <div class="input-field col s6">
-					<input type="text" name="name" value="${dto.name}"> <label for="name">Name</label>
+					<input type="text" name="name" required value="${dto.name}"> <label for="name">Name</label>
 				</div>
 				</div>
-			<div class="row">
-				<div class="input-field col s6">
-					<input type="text" name="taskTypeId" value="${dto.taskTypeId}"> <label for="taskTypeId">Type</label>
+
+			<div class="col s6">
+					<label for="taskTypeId">Task ID</label> 
+					<select name="taskTypeId" class="browser-default" required>
+						<option value="">--select task--</option>
+						<c:forEach items="${allTaskType}" var="taskType">
+							<option value="${taskType.id}" <c:if test="${taskType.id eq dto.taskTypeId}">selected="selected"</c:if>>${taskType.name}</option>
+						</c:forEach>
+					</select>
 				</div>
-			</div>
 		</div>
 		<div class="row">
 			<div class="col s12 input-field center-align">

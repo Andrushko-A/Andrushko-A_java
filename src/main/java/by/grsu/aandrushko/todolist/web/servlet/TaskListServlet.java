@@ -24,6 +24,8 @@ import by.grsu.aandrushko.todolist.db.model.Task;
 import by.grsu.aandrushko.todolist.db.model.Participant;
 import by.grsu.aandrushko.todolist.db.model.Team;
 import by.grsu.aandrushko.todolist.web.dto.TaskListDto;
+import by.grsu.aandrushko.todolist.web.dto.TaskDto;
+import by.grsu.aandrushko.todolist.web.dto.ParticipantDto;
 
 public class TaskListServlet extends HttpServlet {
 	private static final IDao<Integer, TaskList> tasklistDao = TaskListDaoImpl.INSTANCE;
@@ -87,7 +89,27 @@ public class TaskListServlet extends HttpServlet {
 			
 		}
 		req.setAttribute("dto", dto);
+		req.setAttribute("allTasks", getAllTasksDtos());
+		req.setAttribute("allParticipants", getAllParticipantsDtos());
 		req.getRequestDispatcher("taskList-edit.jsp").forward(req, res);
+	}
+	
+	private List<TaskDto> getAllTasksDtos() {
+		return taskDao.getAll().stream().map((entity) -> {
+			TaskDto dto = new TaskDto();
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+			return dto;
+		}).collect(Collectors.toList());
+	}
+	
+	private List<ParticipantDto> getAllParticipantsDtos() {
+		return participantDao.getAll().stream().map((entity) -> {
+			ParticipantDto dto = new ParticipantDto();
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+			return dto;
+		}).collect(Collectors.toList());
 	}
 
 	@Override

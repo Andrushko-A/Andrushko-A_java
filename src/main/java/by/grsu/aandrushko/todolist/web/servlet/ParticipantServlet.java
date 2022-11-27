@@ -15,12 +15,15 @@ import com.google.common.base.Strings;
 
 import by.grsu.aandrushko.todolist.db.dao.IDao;
 import by.grsu.aandrushko.todolist.web.dto.ParticipantDto;
+import by.grsu.aandrushko.todolist.web.dto.TaskDto;
 import by.grsu.aandrushko.todolist.web.dto.TaskListDto;
+import by.grsu.aandrushko.todolist.web.dto.TaskTypeDto;
 import by.grsu.aandrushko.todolist.db.dao.impl.TaskListDaoImpl;
 import by.grsu.aandrushko.todolist.db.dao.impl.ParticipantDaoImpl;
 import by.grsu.aandrushko.todolist.db.model.TaskList;
 import by.grsu.aandrushko.todolist.db.model.TaskType;
 import by.grsu.aandrushko.todolist.db.model.Participant;
+import by.grsu.aandrushko.todolist.db.model.Task;
 
 
 
@@ -51,7 +54,7 @@ public class ParticipantServlet extends HttpServlet {
 		req.setAttribute("list", dtos);
 		req.setAttribute("participantId", participantIdStr);
 		
-		req.getRequestDispatcher("participant.jsp").forward(req, res);
+		req.getRequestDispatcher("tasks-per-participant.jsp").forward(req, res);
 		
 		
 	}
@@ -60,3 +63,4 @@ public class ParticipantServlet extends HttpServlet {
 	
    }
 }
+	

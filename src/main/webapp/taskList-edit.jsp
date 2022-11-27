@@ -16,19 +16,31 @@
 			<input type="hidden" name="id" value="${dto.id}" />
 			<div class="row">
              <div class="input-field col s6">
-					<label><input type="checkbox" name="status" ${dto.status ? 'checked' : ''} value="true" /> <span>Status</span>
+					<label><input type="checkbox" name="status" ${dto.status ? 'checked' : ''} required value="true" /> <span>Status</span>
 					</label>
 				</div>
 				</div>
 			<div class="row">
-				<div class="input-field col s6">
-					<input type="text" name="taskId" value="${dto.taskId}"> <label for="taskId">Task ID</label>
+				<div class="col s6">
+					<label for="taskId">Task ID</label> 
+					<select name="taskId" class="browser-default" required>
+						<option value="">--select task--</option>
+						<c:forEach items="${allTasks}" var="task">
+							<option value="${task.id}" <c:if test="${task.id eq dto.taskId}">selected="selected"</c:if>>${task.name}</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="col s6">
+					<label for="participantId">Participant ID</label> 
+					<select name="participantId" class="browser-default" required>
+						<option value="">--select participant--</option>
+						<c:forEach items="${allParticipants}" var="participant">
+							<option value="${participant.id}" <c:if test="${participant.id eq dto.participantId}">selected="selected"</c:if>>${participant.name}</option>
+						</c:forEach>
+					</select>
 				</div>
 				<div class="input-field col s6">
-					<input type="text" name="participantId" value="${dto.participantId}"> <label for="participantId">Participant ID</label>
-				</div>
-				<div class="input-field col s6">
-					<input type="text" name="teamId" value="${dto.teamId}"> <label for="teamId">Team ID</label>
+					<input type="text" name="teamId"  required value="${dto.teamId}"> <label for="teamId">Team ID</label>
 				</div>
 			</div>
 		</div>

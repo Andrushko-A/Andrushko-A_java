@@ -17,6 +17,7 @@ import by.grsu.aandrushko.todolist.db.dao.impl.TaskDaoImpl;
 import by.grsu.aandrushko.todolist.db.model.TaskType;
 import by.grsu.aandrushko.todolist.db.model.Task;
 import by.grsu.aandrushko.todolist.web.dto.TaskDto;
+import by.grsu.aandrushko.todolist.web.dto.TaskTypeDto;
 
 public class TaskServlet extends HttpServlet {
 	private static final IDao<Integer, Task> taskDao = TaskDaoImpl.INSTANCE;
@@ -62,8 +63,18 @@ public class TaskServlet extends HttpServlet {
 			dto.setTaskTypeId(entity.getTaskTypeId());
 		}
 		req.setAttribute("dto", dto);
+		req.setAttribute("allTaskType", getAllTaskTypeDtos());
 		req.getRequestDispatcher("task-edit.jsp").forward(req, res);
 	}
+	private List<TaskTypeDto> getAllTaskTypeDtos() {
+		return tasktypeDao.getAll().stream().map((entity) -> {
+			TaskTypeDto dto = new TaskTypeDto();
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+			return dto;
+		}).collect(Collectors.toList());
+	}
+
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
