@@ -12,13 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import by.grsu.aandrushko.todolist.db.dao.IDao;
 import by.grsu.aandrushko.todolist.db.dao.impl.TaskTypeDaoImpl;
 import by.grsu.aandrushko.todolist.db.model.TaskType;
+import by.grsu.aandrushko.todolist.web.ValidationUtils;
 
 public class TaskTypeServlet extends HttpServlet {
 	private static final IDao<Integer, TaskType> participantDao = TaskTypeDaoImpl.INSTANCE;
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Integer taskTypeId = Integer.parseInt(req.getParameter("id")); // read request parameter
+		String paramId = req.getParameter("id");
+		
+		
+		if (!ValidationUtils.isInteger(paramId)) {
+			res.sendError(400); // send HTTP status 400 and close response
+			return;
+		}
+
+		
+		Integer taskTypeId = Integer.parseInt(paramId); // read request parameter
 		TaskType taskTypeById = participantDao.getById(taskTypeId); // from DB
 
 		res.setContentType("text/html");// setting the content type

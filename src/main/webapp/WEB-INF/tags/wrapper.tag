@@ -24,7 +24,7 @@
 			<li><a href="#">Settings</a></li>
 			<li><a href='#'><% java.util.Date date = new java.util.Date(); out.print(date.toString()); %>
 			</a></li>
-			<li><a class="btn-small btn-floating waves-effect waves-light blue" title="Ð²ÑÐ¹ÑÐ¸" href="#"><i class="material-icons">input</i></a></li>
+			<li class="active"><a onclick="sendHTTPDelete('/login')"><i class="material-icons">input</i></a></li>
 		</ul>
 	</div>
 	

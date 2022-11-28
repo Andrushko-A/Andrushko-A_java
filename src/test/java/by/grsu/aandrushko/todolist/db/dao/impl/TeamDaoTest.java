@@ -25,7 +25,7 @@ public class TeamDaoTest extends AbstractTest {
 		entity.setNumberOfPart(5);
 		dao.insert(entity);
 		
-		String newName = "number_NEW";
+		String newName = "number2";
 		entity.setName(newName);
 		Integer newNumberOfPart = 6;
 		entity.setNumberOfPart(newNumberOfPart);

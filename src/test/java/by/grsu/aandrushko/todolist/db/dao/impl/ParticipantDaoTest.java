@@ -23,7 +23,7 @@ public class ParticipantDaoTest extends AbstractTest {
 		entity.setName("Andrey");
 		dao.insert(entity);
 		
-		String newName = "Andrey_NEW";
+		String newName = "Maksim";
 		entity.setName(newName);
 		dao.update(entity);
 		

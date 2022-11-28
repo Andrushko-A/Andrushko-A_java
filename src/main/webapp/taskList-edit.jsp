@@ -16,7 +16,7 @@
 			<input type="hidden" name="id" value="${dto.id}" />
 			<div class="row">
              <div class="input-field col s6">
-					<label><input type="checkbox" name="status" ${dto.status ? 'checked' : ''} required value="true" /> <span>Status</span>
+					<label><input type="checkbox" name="status" ${dto.status ? 'checked' : ''} value="true" /> <span>Status</span>
 					</label>
 				</div>
 				</div>

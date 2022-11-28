@@ -25,7 +25,7 @@ public class TaskTypeDaoTest extends AbstractTest {
 		entity.setDateOfCorrection(getCurrentTime());
 		dao.insert(entity);
 		
-		String newName = "Work_NEW";
+		String newName = "Home";
 		entity.setName(newName);
 		entity.setDateOfCorrection(getCurrentTime());
 		dao.update(entity);
