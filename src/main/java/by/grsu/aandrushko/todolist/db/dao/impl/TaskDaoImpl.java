@@ -10,6 +10,7 @@ import java.util.List;
 import by.grsu.aandrushko.todolist.db.dao.AbstractDao;
 import by.grsu.aandrushko.todolist.db.dao.IDao;
 import by.grsu.aandrushko.todolist.db.model.Task;
+import by.grsu.aandrushko.todolist.web.dto.TableStateDto;
 
 public class TaskDaoImpl extends AbstractDao implements IDao<Integer, Task> {
 	public static final TaskDaoImpl INSTANCE = new TaskDaoImpl();

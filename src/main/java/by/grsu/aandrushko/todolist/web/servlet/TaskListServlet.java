@@ -26,8 +26,9 @@ import by.grsu.aandrushko.todolist.db.model.Team;
 import by.grsu.aandrushko.todolist.web.dto.TaskListDto;
 import by.grsu.aandrushko.todolist.web.dto.TaskDto;
 import by.grsu.aandrushko.todolist.web.dto.ParticipantDto;
+import by.grsu.aandrushko.todolist.web.dto.TableStateDto;
 
-public class TaskListServlet extends HttpServlet {
+public class TaskListServlet extends AbstractListServlet {
 	private static final IDao<Integer, TaskList> tasklistDao = TaskListDaoImpl.INSTANCE;
 	private static final IDao<Integer, Task> taskDao = TaskDaoImpl.INSTANCE; 
 	private static final IDao<Integer, Participant> participantDao = ParticipantDaoImpl.INSTANCE;
@@ -67,7 +68,16 @@ public class TaskListServlet extends HttpServlet {
 	
 
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<TaskList> taskslist = tasklistDao.getAll(); // get data
+		//List<TaskList> taskslist = tasklistDao.getAll(); // get data
+		int totaltaskLists = tasklistDao.count(); // get count of ALL items
+
+		final TableStateDto tableStateDto = resolveTableStateDto(req, totaltaskLists); // init TableStateDto for specific
+																					// Servlet and saves it in current
+																					// request using key
+																					// "currentPageTableState" to be
+																					// used by 'paging' component
+
+		List<TaskList> taskslist = tasklistDao.find(tableStateDto); // get data using paging and sorting params
 
 		List<TaskListDto> dtos = taskslist.stream().map((entity) -> {
 			TaskListDto dto = new TaskListDto();
