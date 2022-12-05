@@ -11,6 +11,7 @@ import by.grsu.aandrushko.todolist.db.dao.AbstractDao;
 import by.grsu.aandrushko.todolist.db.dao.IDao;
 import by.grsu.aandrushko.todolist.db.model.Participant;
 import by.grsu.aandrushko.todolist.db.model.TaskList;
+import by.grsu.aandrushko.todolist.web.dto.TableStateDto;
 
 public class ParticipantDaoImpl extends AbstractDao implements IDao<Integer, Participant>{
 	

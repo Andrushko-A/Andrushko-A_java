@@ -21,7 +21,6 @@
 		<li><a href="/taskList">Task list</a></li>
 			<li><a href="/task">Tasks</a></li>
 			<li><a href="/participant">Participants</a></li>
-			<li><a href="#">Settings</a></li>
 			<li><a href='#'><% java.util.Date date = new java.util.Date(); out.print(date.toString()); %>
 			</a></li>
 			<li class="active"><a onclick="sendHTTPDelete('/login')"><i class="material-icons">input</i></a></li>
