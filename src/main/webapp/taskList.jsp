@@ -2,7 +2,9 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 <c:set var="pageTitle" value="taskList" scope="application"/>
+<c:set var="pageUrl" value="/taskList" scope="page" />
 <t:wrapper>
 
 
@@ -11,15 +13,13 @@
 	<table>
 		<thead>
 			<tr>
-				<th>id</th>
-				<th>task</th>
+                <th><mytaglib:sort-link pageUrl="${pageUrl}" column="id">DB ID</mytaglib:sort-link></th>
+                <th>task</th>
 				<th>participant</th>
-				<th>deadline</th>
-				<th>dateOfCorrection</th>
-				<th>status</th>
+				<th><mytaglib:sort-link pageUrl="${pageUrl}" column="deadline">Deadline</mytaglib:sort-link></th>
+				<th><mytaglib:sort-link pageUrl="${pageUrl}" column="date_of_correction">Correction date</mytaglib:sort-link></th>
+				<th><mytaglib:sort-link pageUrl="${pageUrl}" column="status">Status</mytaglib:sort-link></th>
 				<th>team</th>
-
-
 			</tr>
 
 		</thead>
@@ -35,7 +35,7 @@
 					<td><c:out value="${entity.teamName}" /></td>
 					<td><a class="btn-small btn-floating waves-effect waves-light blue" title="редактировать" href="/taskList?view=edit&id=${entity.id}"><i
 							class="material-icons">edit</i></a>
-							<a class="btn-small btn-floating waves-effect waves-light blue" title="участники" href="/taskList?view=edit&id=${entity.id}"><i
+							<a class="btn-small btn-floating waves-effect waves-light blue" title="участники" href="/taskList?view=look=${entity.id}"><i
 							class="material-icons">group</i></a>
 							<a class="btn-small btn-floating waves-effect waves-light red" title="удалить" onclick="sendHTTPDelete('/taskList?id=${entity.id}')"><i class="material-icons">delete</i></a></td>
 				</tr>
@@ -50,6 +50,6 @@
 		</div>
 	</div>
 
-
+<t:paging />
 </t:wrapper>
 

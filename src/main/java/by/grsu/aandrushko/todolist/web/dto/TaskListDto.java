@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 
 public class TaskListDto {
 	
-
 	private Integer id;
 	private Integer taskId;
 	private String taskName;

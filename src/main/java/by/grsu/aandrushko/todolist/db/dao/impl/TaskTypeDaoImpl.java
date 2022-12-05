@@ -101,4 +101,14 @@ public class TaskTypeDaoImpl extends AbstractDao implements IDao<Integer, TaskTy
 		return entity;
 		
 	}
+	
+	@Override
+	public List<TaskType> find(TableStateDto tableStateDto) {
+		throw new RuntimeException("not implemented");
+	}
+
+	@Override
+	public int count() {
+		throw new RuntimeException("not implemented");
+	}
 }

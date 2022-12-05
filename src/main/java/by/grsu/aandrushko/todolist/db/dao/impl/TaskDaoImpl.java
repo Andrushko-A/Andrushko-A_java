@@ -101,4 +101,14 @@ public class TaskDaoImpl extends AbstractDao implements IDao<Integer, Task> {
 		entity.setTaskTypeId(rs.getInt("task_type_id"));
 		return entity;
 	}
+	
+	@Override
+	public List<Task> find(TableStateDto tableStateDto) {
+		throw new RuntimeException("not implemented");
+	}
+
+	@Override
+	public int count() {
+		throw new RuntimeException("not implemented");
+	}
 }

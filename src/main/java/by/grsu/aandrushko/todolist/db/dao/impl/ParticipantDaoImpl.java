@@ -10,6 +10,7 @@ import java.util.List;
 import by.grsu.aandrushko.todolist.db.dao.AbstractDao;
 import by.grsu.aandrushko.todolist.db.dao.IDao;
 import by.grsu.aandrushko.todolist.db.model.Participant;
+import by.grsu.aandrushko.todolist.db.model.TaskList;
 
 public class ParticipantDaoImpl extends AbstractDao implements IDao<Integer, Participant>{
 	
@@ -18,6 +19,29 @@ public class ParticipantDaoImpl extends AbstractDao implements IDao<Integer, Par
 	private ParticipantDaoImpl() {
 		super();
 	}
+	
+
+	public	List<Participant> getByTask(Integer taskListId){
+		//return null;
+		List<Participant> entitiesList = new ArrayList<>();
+		try (Connection c = createConnection()) {
+
+			PreparedStatement pstmt = c.prepareStatement("select * from participant where id=?");
+			pstmt.setInt(1, taskListId);
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Participant entity = rowToEntity(rs);
+				entitiesList.add(entity);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("can't select TaskList entities", e);
+		}
+
+		return entitiesList;
+		
+	}
+
 	
 	@Override
 	public void insert(Participant entity) {
@@ -98,5 +122,15 @@ public class ParticipantDaoImpl extends AbstractDao implements IDao<Integer, Par
 		entity.setName(rs.getString("name"));
 		return entity;
 		
+	}
+	
+	@Override
+	public List<Participant> find(TableStateDto tableStateDto) {
+		throw new RuntimeException("not implemented");
+	}
+
+	@Override
+	public int count() {
+		throw new RuntimeException("not implemented");
 	}
 }

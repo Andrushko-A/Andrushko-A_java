@@ -42,7 +42,29 @@ public class TaskListServlet extends HttpServlet {
 		} else {
 			handleListView(req, res);
 		}
+	//	if("look".equals(viewParam))
+	//	{
+	//	    partTask(req, res);
+	//	}
 	}
+	
+//	private void partTask(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	//	List<TaskList> taskslist = tasklistDao.getByParticipant();
+
+	//	List<TaskListDto> dtos = taskslist.stream().map((entity) -> {
+	//		TaskListDto dto = new TaskListDto();
+
+	//		Participant participant = participantDao.getById(entity.getParticipantId());
+	//		dto.setParticipantName(participant.getName());
+			
+	//		return dto;
+	//	}).collect(Collectors.toList());
+
+	//	req.setAttribute("list", dtos); // set data as request attribute (like "add to map") to be used later in JSP
+	//	req.getRequestDispatcher("taskList.jsp").forward(req, res); // delegate request processing to JSP
+//	}
+	
+	
 
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		List<TaskList> taskslist = tasklistDao.getAll(); // get data
@@ -112,6 +134,7 @@ public class TaskListServlet extends HttpServlet {
 		}).collect(Collectors.toList());
 	}
 
+	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doPost");

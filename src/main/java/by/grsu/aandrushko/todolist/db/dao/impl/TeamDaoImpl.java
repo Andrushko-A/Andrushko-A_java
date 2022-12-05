@@ -101,4 +101,13 @@ public class TeamDaoImpl extends AbstractDao implements IDao<Integer, Team>{
 		return entity;
 		
 	}
+	@Override
+	public List<Team> find(TableStateDto tableStateDto) {
+		throw new RuntimeException("not implemented");
+	}
+
+	@Override
+	public int count() {
+		throw new RuntimeException("not implemented");
+	}
 }

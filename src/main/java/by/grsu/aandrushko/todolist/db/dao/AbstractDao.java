@@ -11,8 +11,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import org.sqlite.SQLiteConfig;
+
+import by.grsu.aandrushko.todolist.db.model.TaskList;
+import by.grsu.aandrushko.todolist.web.dto.SortDto;
+import by.grsu.aandrushko.todolist.web.dto.TableStateDto;
 
 public class AbstractDao {
 	private static final String DB_FOLDER = "db-storage";
@@ -75,5 +80,17 @@ public class AbstractDao {
 		File dbDataFile = new File(String.format("%s/%s", DB_FOLDER, DB_NAME));
 		dbDataFile.delete();
 	}
+	
+	protected int resolveOffset(TableStateDto dto) {
+		int offset = dto.getItemsPerPage() * (dto.getPage() - 1);
+		return dto.getTotalCount() < offset ? 0 : offset;
+
+	}
+
+	protected String resolveSortOrder(SortDto sortDto) {
+		return sortDto.isAscending() ? "asc" : "desc";
+	}
+
+
 
 }
