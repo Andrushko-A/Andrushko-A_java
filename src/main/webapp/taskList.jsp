@@ -13,7 +13,7 @@
 	<table>
 		<thead>
 			<tr>
-                <th><mytaglib:sort-link pageUrl="${pageUrl}" column="id">DB ID</mytaglib:sort-link></th>
+                <th><mytaglib:sort-link pageUrl="${pageUrl}" column="id">Id</mytaglib:sort-link></th>
                 <th>task</th>
 				<th>participant</th>
 				<th><mytaglib:sort-link pageUrl="${pageUrl}" column="deadline">Deadline</mytaglib:sort-link></th>
