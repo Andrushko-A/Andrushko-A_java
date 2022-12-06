@@ -9,7 +9,9 @@ import java.util.List;
 
 import by.grsu.aandrushko.todolist.db.dao.AbstractDao;
 import by.grsu.aandrushko.todolist.db.dao.IDao;
+import by.grsu.aandrushko.todolist.db.model.Participant;
 import by.grsu.aandrushko.todolist.db.model.TaskType;
+import by.grsu.aandrushko.todolist.web.dto.SortDto;
 import by.grsu.aandrushko.todolist.web.dto.TableStateDto;
 
 public class TaskTypeDaoImpl extends AbstractDao implements IDao<Integer, TaskType>{
@@ -105,11 +107,39 @@ public class TaskTypeDaoImpl extends AbstractDao implements IDao<Integer, TaskTy
 	
 	@Override
 	public List<TaskType> find(TableStateDto tableStateDto) {
-		throw new RuntimeException("not implemented");
+		List<TaskType> entitiesList = new ArrayList<>();
+		try (Connection c = createConnection()) {
+			StringBuilder sql = new StringBuilder("select * from task_type");
+
+			final SortDto sortDto = tableStateDto.getSort();
+			if (sortDto != null) {
+				sql.append(String.format(" order by %s %s", sortDto.getColumn(), resolveSortOrder(sortDto)));
+			}
+
+			sql.append(" limit " + tableStateDto.getItemsPerPage());
+			sql.append(" offset " + resolveOffset(tableStateDto));
+
+			System.out.println("searching TasksType using SQL: " + sql);
+			ResultSet rs = c.createStatement().executeQuery(sql.toString());
+			while (rs.next()) {
+				TaskType entity = rowToEntity(rs);
+				entitiesList.add(entity);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("can't select TaskType entities", e);
+		}
+		return entitiesList;
 	}
 
 	@Override
 	public int count() {
-		throw new RuntimeException("not implemented");
+		try (Connection c = createConnection()) {
+			PreparedStatement pstmt = c.prepareStatement("select count(*) as c from task_type");
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			return rs.getInt("c");
+		} catch (SQLException e) {
+			throw new RuntimeException("can't get taskType count", e);
+		}
 	}
 }

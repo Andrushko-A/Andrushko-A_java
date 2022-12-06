@@ -17,11 +17,12 @@ import com.google.common.base.Strings;
 
 import by.grsu.aandrushko.todolist.db.dao.IDao;
 import by.grsu.aandrushko.todolist.db.dao.impl.TaskTypeDaoImpl;
+import by.grsu.aandrushko.todolist.db.model.Participant;
 import by.grsu.aandrushko.todolist.db.model.TaskType;
 import by.grsu.aandrushko.todolist.web.dto.TaskTypeDto;
 import by.grsu.aandrushko.todolist.web.dto.TableStateDto;
 
-public class TaskTypeServlet extends HttpServlet {
+public class TaskTypeServlet extends AbstractListServlet {
 	private static final IDao<Integer, TaskType> taskTypeDao = TaskTypeDaoImpl.INSTANCE;
 
 	@Override
@@ -36,7 +37,18 @@ public class TaskTypeServlet extends HttpServlet {
 	}
 
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<TaskType> taskstype = taskTypeDao.getAll(); // get data
+		//List<TaskType> taskstype = taskTypeDao.getAll(); // get data
+		
+		int totaltasksType = taskTypeDao.count(); // get count of ALL items
+
+		final TableStateDto tableStateDto = resolveTableStateDto(req, totaltasksType); // init TableStateDto for specific
+																					// Servlet and saves it in current
+																					// request using key
+																					// "currentPageTableState" to be
+																					// used by 'paging' component
+
+		List<TaskType> taskstype = taskTypeDao.find(tableStateDto); // get data using paging and sorting params
+		
 
 		List<TaskTypeDto> dtos = taskstype.stream().map((entity) -> {
 			TaskTypeDto dto = new TaskTypeDto();

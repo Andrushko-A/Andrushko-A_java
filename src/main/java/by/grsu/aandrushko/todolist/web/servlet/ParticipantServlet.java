@@ -17,10 +17,11 @@ import com.google.common.base.Strings;
 import by.grsu.aandrushko.todolist.db.dao.IDao;
 import by.grsu.aandrushko.todolist.db.dao.impl.ParticipantDaoImpl;
 import by.grsu.aandrushko.todolist.db.model.Participant;
+import by.grsu.aandrushko.todolist.db.model.Task;
 import by.grsu.aandrushko.todolist.web.dto.ParticipantDto;
 import by.grsu.aandrushko.todolist.web.dto.TableStateDto;
 
-public class ParticipantServlet extends HttpServlet {
+public class ParticipantServlet extends AbstractListServlet {
 	private static final IDao<Integer, Participant> participantDao = ParticipantDaoImpl.INSTANCE;
 
 	@Override
@@ -35,8 +36,17 @@ public class ParticipantServlet extends HttpServlet {
 	}
 
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Participant> participants = participantDao.getAll(); // get data
+		//List<Participant> participants = participantDao.getAll(); // get data
+		int totalparticipants = participantDao.count(); // get count of ALL items
 
+		final TableStateDto tableStateDto = resolveTableStateDto(req, totalparticipants); // init TableStateDto for specific
+																					// Servlet and saves it in current
+																					// request using key
+																					// "currentPageTableState" to be
+																					// used by 'paging' component
+
+		List<Participant> participants = participantDao.find(tableStateDto); // get data using paging and sorting params
+		
 		List<ParticipantDto> dtos = participants.stream().map((entity) -> {
 			ParticipantDto dto = new ParticipantDto();
 			dto.setId(entity.getId());
@@ -48,6 +58,7 @@ public class ParticipantServlet extends HttpServlet {
 		req.setAttribute("list", dtos);
 		req.getRequestDispatcher("participant.jsp").forward(req, res);
 	}
+
 
 	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String participantIdStr = req.getParameter("id");

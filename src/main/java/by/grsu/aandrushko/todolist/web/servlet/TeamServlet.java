@@ -16,11 +16,12 @@ import com.google.common.base.Strings;
 
 import by.grsu.aandrushko.todolist.db.dao.IDao;
 import by.grsu.aandrushko.todolist.db.dao.impl.TeamDaoImpl;
+import by.grsu.aandrushko.todolist.db.model.Participant;
 import by.grsu.aandrushko.todolist.db.model.Team;
 import by.grsu.aandrushko.todolist.web.dto.TeamDto;
 import by.grsu.aandrushko.todolist.web.dto.TableStateDto;
 
-public class TeamServlet extends HttpServlet {
+public class TeamServlet extends AbstractListServlet {
 	private static final IDao<Integer, Team> teamDao = TeamDaoImpl.INSTANCE;
 
 	@Override
@@ -35,7 +36,18 @@ public class TeamServlet extends HttpServlet {
 	}
 
 	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		List<Team> teams = teamDao.getAll(); // get data
+	//	List<Team> teams = teamDao.getAll(); // get data
+		
+		int totalteams = teamDao.count(); // get count of ALL items
+
+		final TableStateDto tableStateDto = resolveTableStateDto(req, totalteams); // init TableStateDto for specific
+																					// Servlet and saves it in current
+																					// request using key
+																					// "currentPageTableState" to be
+																					// used by 'paging' component
+
+		List<Team> teams = teamDao.find(tableStateDto); // get data using paging and sorting params
+		
 
 		List<TeamDto> dtos = teams.stream().map((entity) -> {
 			TeamDto dto = new TeamDto();
@@ -76,7 +88,7 @@ public class TeamServlet extends HttpServlet {
 		
 		if (Strings.isNullOrEmpty(teamIdStr)) {
 			team.setName("number2");
-			team.setNumberOfPart("5");
+			team.setNumberOfPart("3");
 			teamDao.insert(team);
 		} else {
 			team.setId(Integer.parseInt(teamIdStr));
