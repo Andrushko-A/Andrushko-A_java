@@ -1,72 +1,96 @@
 package by.grsu.aandrushko.todolist.web.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.base.Strings;
+
 import by.grsu.aandrushko.todolist.db.dao.IDao;
 import by.grsu.aandrushko.todolist.db.dao.impl.TaskTypeDaoImpl;
 import by.grsu.aandrushko.todolist.db.model.TaskType;
-import by.grsu.aandrushko.todolist.web.ValidationUtils;
+import by.grsu.aandrushko.todolist.web.dto.TaskTypeDto;
+import by.grsu.aandrushko.todolist.web.dto.TableStateDto;
 
 public class TaskTypeServlet extends HttpServlet {
-	private static final IDao<Integer, TaskType> participantDao = TaskTypeDaoImpl.INSTANCE;
+	private static final IDao<Integer, TaskType> taskTypeDao = TaskTypeDaoImpl.INSTANCE;
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String paramId = req.getParameter("id");
-		
-		
-		if (!ValidationUtils.isInteger(paramId)) {
-			res.sendError(400); // send HTTP status 400 and close response
-			return;
-		}
-
-		
-		Integer taskTypeId = Integer.parseInt(paramId); // read request parameter
-		TaskType taskTypeById = participantDao.getById(taskTypeId); // from DB
-
-		res.setContentType("text/html");// setting the content type
-
-		PrintWriter pw = res.getWriter();// get the stream to write the data
-
-		// writing html in the stream
-		pw.println("<html><body>");
-
-		if (taskTypeById == null) {
-			pw.println("no taskTypeId by id=" + taskTypeId);
+		System.out.println("doGet");
+		String viewParam = req.getParameter("view");
+		if ("edit".equals(viewParam)) {
+			handleEditView(req, res);
 		} else {
-			pw.println(taskTypeById.toString());
+			handleListView(req, res);
 		}
-
-		pw.println("</body></html>");
-		pw.close();// closing the stream
 	}
+
+	private void handleListView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		List<TaskType> taskstype = taskTypeDao.getAll(); // get data
+
+		List<TaskTypeDto> dtos = taskstype.stream().map((entity) -> {
+			TaskTypeDto dto = new TaskTypeDto();
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+			dto.setDateOfCorrection(entity.getDateOfCorrection());
+
+			return dto;
+		}).collect(Collectors.toList());
+
+		req.setAttribute("list", dtos);
+		req.getRequestDispatcher("taskType.jsp").forward(req, res);
+	}
+
+	private void handleEditView(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		String taskTypeIdStr = req.getParameter("id");
+		TaskTypeDto dto = new TaskTypeDto();
+		if (!Strings.isNullOrEmpty(taskTypeIdStr)) {
+			Integer taskTypeId = Integer.parseInt(taskTypeIdStr);
+			TaskType entity = taskTypeDao.getById(taskTypeId);
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+			dto.setDateOfCorrection(entity.getDateOfCorrection());
+		}
+		req.setAttribute("dto", dto);
+		req.getRequestDispatcher("taskType-edit.jsp").forward(req, res);
+	}
+
+
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		res.setContentType("text/html");
-		PrintWriter pw = res.getWriter();// get the stream to write the data
-		pw.println("<html><body>");
-		try {
-			String paramName = req.getParameter("name");
-			Long paramDateOfCorrection = Long.parseLong(req.getParameter("dateOfCorrection"));
-			TaskType tasktypeEntity = new TaskType();
-			tasktypeEntity.setName(paramName);
-			tasktypeEntity.setDateOfCorrection(new Timestamp(paramDateOfCorrection));
-			participantDao.insert(tasktypeEntity);
-			pw.println("Saved:" + tasktypeEntity);
-
-		} catch (Exception e) {
-			pw.println("Error:" + e.toString());
+		System.out.println("doPost");
+        TaskType taskType = new TaskType();
+		String taskTypeIdStr = req.getParameter("id");
+		taskType.setName(req.getParameter("name"));
+		taskType.setDateOfCorrection(new Timestamp(new Date().getTime()));
+		
+		if (Strings.isNullOrEmpty(taskTypeIdStr)) {
+			taskType.setName("Home");
+			taskType.setDateOfCorrection(new Timestamp(new Date().getTime()));
+			taskTypeDao.insert(taskType);
+		} else {
+			taskType.setId(Integer.parseInt(taskTypeIdStr));
+			taskTypeDao.update(taskType);
 		}
+		
 
-		pw.println("</body></html>");
-		pw.close();
+		res.sendRedirect("/taskType");
+	}
+
+	@Override
+	public void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		System.out.println("doDelete");
+		taskTypeDao.delete(Integer.parseInt(req.getParameter("id")));
 	}
 }
