@@ -74,7 +74,6 @@ public class ParticipantServlet extends AbstractListServlet {
 	}
 
 
-
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doPost");
