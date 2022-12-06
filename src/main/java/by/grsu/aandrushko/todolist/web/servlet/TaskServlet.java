@@ -99,7 +99,7 @@ public class TaskServlet extends AbstractListServlet {
 		task.setTaskTypeId(taskTypeIdStr == null ? null : Integer.parseInt(taskTypeIdStr));
 		
 		if (Strings.isNullOrEmpty(taskIdStr)) {
-			task.setName("andrey");
+			task.setName("write program");
 			taskDao.insert(task);
 		} else {
 			task.setId(Integer.parseInt(taskIdStr));
