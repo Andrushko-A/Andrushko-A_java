@@ -13,7 +13,7 @@ public class TeamDaoTest extends AbstractTest {
 	public void testInsert() {
 		Team entity = new Team();
 		entity.setName("number1");
-		entity.setNumberOfPart(5);
+		entity.setNumberOfPart("5");
 		dao.insert(entity);
 		Assertions.assertNotNull(entity.getId());
 	}
@@ -22,12 +22,12 @@ public class TeamDaoTest extends AbstractTest {
 	public void testUpdate() {
 		Team entity = new Team();
 		entity.setName("number1");
-		entity.setNumberOfPart(5);
+		entity.setNumberOfPart("5");
 		dao.insert(entity);
 		
 		String newName = "number2";
 		entity.setName(newName);
-		Integer newNumberOfPart = 6;
+		String newNumberOfPart = "6";
 		entity.setNumberOfPart(newNumberOfPart);
 		dao.update(entity);
 		
@@ -41,7 +41,7 @@ public class TeamDaoTest extends AbstractTest {
 	public void testDelete() {
         Team entity = new Team();
         entity.setName("number1");
-		entity.setNumberOfPart(5);
+		entity.setNumberOfPart("5");
 		dao.insert(entity);
 		
 		dao.delete(entity.getId());
@@ -53,7 +53,7 @@ public class TeamDaoTest extends AbstractTest {
 	public void testGetById() {
 		Team entity = new Team();
 		entity.setName("number1");
-		entity.setNumberOfPart(5);
+		entity.setNumberOfPart("5");
 		dao.insert(entity);
 		
 		Team selectEntity = dao.getById(entity.getId());
@@ -68,7 +68,7 @@ public class TeamDaoTest extends AbstractTest {
 		for (int i = 1; i <= expectedCount; i++) {
 			Team entity = new Team();
 			entity.setName("number1" + i);
-			entity.setNumberOfPart(5);
+			entity.setNumberOfPart("5");
 			dao.insert(entity);
 		}
 		

@@ -25,7 +25,7 @@ public class TeamDaoImpl extends AbstractDao implements IDao<Integer, Team>{
 		try (Connection c = createConnection()){
 			PreparedStatement pstmt =c.prepareStatement("insert into team(name, number_of_part) values(?,?)");
 			pstmt.setString(1, entity.getName());
-			pstmt.setInt(2, entity.getNumberOfPart());
+			pstmt.setString(2, entity.getNumberOfPart());
 			pstmt.executeUpdate();
 			entity.setId(getGeneratedId(c, "team"));
 		} catch (SQLException e) {
@@ -38,7 +38,7 @@ public class TeamDaoImpl extends AbstractDao implements IDao<Integer, Team>{
 		try (Connection c = createConnection()){
 			PreparedStatement pstmt =c.prepareStatement("update team set name=?, number_of_part=? where id=?");
 			pstmt.setString(1, entity.getName());
-			pstmt.setInt(2, entity.getNumberOfPart());
+			pstmt.setString(2, entity.getNumberOfPart());
 			pstmt.setInt(3, entity.getId());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -98,7 +98,7 @@ public class TeamDaoImpl extends AbstractDao implements IDao<Integer, Team>{
 		Team entity = new Team();
 		entity.setId(rs.getInt("id"));
 		entity.setName(rs.getString("name"));
-		entity.setNumberOfPart(rs.getInt("number_of_part"));
+		entity.setNumberOfPart(rs.getString("number_of_part"));
 		return entity;
 		
 	}
