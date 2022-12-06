@@ -114,7 +114,7 @@ public class TaskListDaoTest extends AbstractTest {
 	private Team saveTeam(String name) {
 		Team entity = new Team();
 		entity.setName("number1");
-		entity.setNumberOfPart(5);
+		entity.setNumberOfPart("5");
 		teamDao.insert(entity);
 		return entity;
 	}

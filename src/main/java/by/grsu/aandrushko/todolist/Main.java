@@ -29,7 +29,7 @@ public class Main {
 		Team team = new Team();
 		team.setId(1);
 		team.setName("Development team");
-		team.setNumberOfPart(3);
+		team.setNumberOfPart("3");
 		System.out.println(team.toString());
 		///////////
 		TaskList taskList = new TaskList();

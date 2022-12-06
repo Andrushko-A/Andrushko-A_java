@@ -61,7 +61,7 @@ public class AppStartupListener implements ServletContextListener {
 		
 		Team teamEntity = new Team();
 		teamEntity.setName("number1");
-		teamEntity.setNumberOfPart(5);
+		teamEntity.setNumberOfPart("5");
 		teamDao.insert(teamEntity);
 		System.out.println("created: " + teamEntity);
 		
